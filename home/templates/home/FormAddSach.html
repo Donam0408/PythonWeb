@@ -1,0 +1,78 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form id="sach-form" action="/home/AddSach/" method="post">
+    {% csrf_token %}
+    
+    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
+    
+    <label for="">Nhập tên sách</label><br> {{form.tenSach}}<br>
+    
+    <label for="">Nhập loại sách</label><br>{{form.loaiSach}}<br>
+
+    <label for="">Nhập tác giả</label><br>{{form.tenTG}}<br>
+
+    <label for="">Nhập nhà xuất bản</label><br>{{form.nhaXB}}<br>
+
+    <label for="">Nhập năm xuất bản</label><br>{{form.namXB}}<br>
+
+    
+
+    <input  class="btn btn-primary" type="submit" name="dangki" value="Thêm Sách">
+</form>
+{% endblock %}
+{% block javascript %}
+<script>
+    $("#sach-form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var serializedData = $(this).serialize();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'saveSach' %}",
+        data: serializedData,
+        success: function (response) {
+            // on successfull creating object
+            if(!response["valid"]){
+                    alert("Thêm sách thành công");
+            // 1. clear the form.
+            $("#sach-form").trigger('reset');
+            // 2. focus to nickname input 
+            $("#id_maSach").focus();
+
+            // display the newly friend to table.
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+        }
+    })
+}) 
+
+$("#id_maSach").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maSach = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'validate_sach' %}",
+        data: {"maSach": maSach },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(!response["valid"]){
+                alert("Mã sách bạn nhập đã tồn tại");
+                var maSach = $("#id_maSach");
+                maSach.val("")
+                maSach.focus()
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+</script>
+{% endblock %}

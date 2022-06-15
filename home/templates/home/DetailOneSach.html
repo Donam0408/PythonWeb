@@ -1,0 +1,31 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<h1>Danh Sach Sach Can Tim</h1>
+<table border="1">
+    {% if ds%}
+            <td style="color:red;">Mã Sách</td>
+            <td style="color:red;">Tên Sách </td>
+            <td style="color:red;">Loại Sách</td>
+            <td style="color:red;">Tác Giả</td>
+            <td style="color:red;">Nhà xuất bản</td>
+            <td style="color:red;">Năm xuất bản</td>
+            <td style="color:red;">Trạng thái</td>
+        <tr>
+            <td style="color:red;">{{ds.maSach}}</td>
+            <td style="color:red;">{{ds.tenSach}} </td>
+            <td style="color:red;">{{ds.tenTG}}</td> 
+            <td style="color:red;"> {{ds.loaiSach}}</td>
+            <td style="color:red;">{{ds.nhaXB}} </td>
+            <td style="color:red;"> {{ds.namXB}}</td>
+             {% if ds.trangThaiSach  %}
+                <td style="color:red;">Có thể mượn</td> 
+             {% else %}
+                <td style="color:red;">Không thể mượn</td>
+             {% endif %}
+        </tr>
+    {% else %}
+        <h3 style="color:red;">Không có dữ liệu nào</h3>
+    {% endif %}
+</table>    
+ {% endblock %}

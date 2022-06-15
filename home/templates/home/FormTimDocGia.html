@@ -1,0 +1,89 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form id="DG-form" action="/home/FindDocGia/" method="post">
+    {% csrf_token %}
+    
+    
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+
+
+    <input type="submit" name="Tìm" value="Tìm">
+</form>
+<br><br>
+<h1>Đọc giả cần tìm</h1>
+<ul>
+    <div class="container-fluid">
+        <table border="1" class="table table-striped table-sm" id="dg-table">
+            
+            <thead>
+                <tr>
+                    <td style="color:red;">Mã Đọc Giả</td>
+                    <td style="color:red;">Tên đọc giả </td>
+                    <td style="color:red;">Ngày Sinh </td>
+                    <td style="color:red;">Giới Tính</td>
+                    <td style="color:red;"> Số điện thoại </td>
+                    <td style="color:red;">Địa chỉ</td> 
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                
+            </tbody>
+        </table>
+        </div>  
+    
+</ul>  
+{% endblock %}
+{% block javascript %}
+<script>
+
+     $("#DG-form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var maDG = $("#id_maDG").val();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'find_dg' %}",
+        data: {"maDG": maDG,
+                csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val()
+    },
+        success: function (response) {
+            // on successfull creating object
+            if(!response["valid"]){
+                alert("Mã đọc giả bạn nhập không tồn tại");
+            // 1. clear the form.
+            $("#DG-form").trigger('reset');
+            // 2. focus to nickname input 
+            $("#id_maDG").focus();
+
+            // display the newly friend to table.
+            }
+            else {
+                var instance = JSON.parse(response["instance"]);  
+                var fields = instance[0]["fields"];
+                $("#dg-table tbody").prepend(
+                    `<tr>
+                    <td>${fields["maDG"]||""}</td>
+                    <td>${fields["tenDG"]||""}</td>
+                    <td>${fields["ngaySinh"]||""}</td>
+                    <td>${fields["gioiTinh"]||""}</td>
+                    <td>${fields["SDT"]||""}</td>
+                    <td>${fields["diaChi"]||""}</td>
+                    </tr>`
+                )
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+            
+        }
+    })
+}) 
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form action="/home/Register/" method="post">
+    {% csrf_token %}
+    <label for="">Nhập tên đăng nhập</label><br>{{form.username}}<br>
+    <label for="">Nhập Email</label><br>{{form.email}}<br>
+    <label for="">Nhập mật khẩu</label><br>{{form.password}}<br>
+    <input class="btn btn-primary" type="submit" name="dangki" value="Đăng Kí">
+</form>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $("#id_username").focusout(function (e) {
+        e.preventDefault();
+        // get the nickname
+        var maSach = $(this).val();
+        // GET AJAX request
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'validate_user' %}",
+            data: {"username": maSach },
+            success: function (response) {
+                // if not valid user, alert the user
+                if(!response["valid"]){
+                    alert("Tên đăng nhập đã tồn tại");
+                    var maDG = $("#id_maSach");
+                    maDG.val("")
+                    
+                }
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<h1>Change Password</h1>
+<form action="/home/ChangePassword/" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary">Change Password</button>
+</form>
+<br>
+<ul>
+    <li>Your password can’t be too similar to your other personal information.</li>
+    <li>Your password must contain at least 8 characters.</li> 
+    <li>Your password can’t be a commonly used password.</li>
+    <li>Your password can’t be entirely numeric.</li>
+</ul>
+{% endblock %}

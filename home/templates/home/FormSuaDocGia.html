@@ -1,0 +1,80 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form id="DG-form" action="/home/SuaDocGia/" method="post">
+    {% csrf_token %}
+    
+    
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+    
+    <label for="">Nhập tên đọc giả</label><br> {{form.tenDG}}<br>
+    
+    <label for="">Nhập ngày sinh đọc giả</label><br>{{form.ngaySinh}}<br>
+    
+    <label for="">Nhập giới tính đọc giả</label><br>{{form.gioiTinh}}<br>
+   
+    <label for="">Nhập số điện thoại đọc giả</label><br>{{form.SDT}}<br>
+    
+    <label for="">Nhập địa chỉ đọc giả</label><br>{{form.diaChi}}<br>
+
+    <input type="submit" name="dangki" value="Update">
+</form>
+{% endblock %}
+{% block javascript %}
+<script>
+
+     $("#DG-form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var maDG = $("#id_maDG").val();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'alterDG' %}",
+        data: { "maDG": maDG,
+                "tenDG": $("#id_tenDG").val(),
+                "ngaySinh": $("#id_ngaySinh").val(),
+                "gioiTinh": $("#id_gioiTinh").val(),
+                "SDT": $("#id_SDT").val(),
+                "diaChi": $("#id_diaChi").val(),
+                csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val(),
+    },
+        success: function (response) {
+            if(!response["valid"]){
+                alert("Mã đọc giả bạn nhập không tồn tại");
+            }
+            else {
+                alert("Sửa thông tin đọc giả thành công");
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+            
+        }
+    })
+}) 
+$("#id_maDG").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maDG = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'validate_nickname' %}",
+        data: {"maDG": maDG },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(response["valid"]){
+                alert("Mã đọc giả bạn nhập không tồn tại");
+                
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+
+</script>
+{% endblock %}

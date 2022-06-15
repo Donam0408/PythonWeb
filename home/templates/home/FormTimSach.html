@@ -1,0 +1,105 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form action="/home/FindSach/" method="post" id="sach-form">
+    {% csrf_token %}
+    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
+    <input type="submit" name="Tìm" value="Tìm"> 
+    <br><br>
+</form>
+<h1>Thông tin sách cần tìm</h1>
+<ul>
+    <div class="container-fluid">
+        <table border="1" class="table table-striped table-sm" id="sach-table">
+            
+            <thead>
+                <tr>
+                    <td style="color:red;">Mã Sách</td>
+                    <td style="color:red;">Tên Sách </td>
+                    <td style="color:red;">Loại Sách</td>
+                    <td style="color:red;">Tác Giả</td>
+                    <td style="color:red;">Nhà xuất bản</td>
+                    <td style="color:red;">Năm xuất bản</td>
+                    <td style="color:red;">Trạng thái</td>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                
+            </tbody>
+        </table>
+        </div>  
+    
+</ul>  
+{% endblock %}
+{% block javascript %}
+<script>
+
+     $("#sach-form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var maSach = $("#id_maSach").val();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'FindSach' %}",
+        data: {"maSach": maSach,
+                csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val()
+    },
+        success: function (response) {
+            // on successfull creating object
+            if(!response["valid"]){
+                alert("Mã sách bạn nhập không tồn tại");
+            // 1. clear the form.
+            $("#sach-form").trigger('reset');
+            // 2. focus to nickname input 
+            $("#id_maSach").focus();
+
+            // display the newly friend to table.
+            }
+            else {
+                var instance = JSON.parse(response["instance"]);
+                
+                var fields = instance[0]["fields"];
+            
+                if(fields["trangThaiSach"] == true){
+                    $("#sach-table tbody").prepend(
+                        `<tr>
+                        <td>${fields["maSach"]||""}</td>
+                        <td>${fields["tenSach"]||""}</td>
+                        <td>${fields["tenTG"]||""}</td>
+                        <td>${fields["loaiSach"]||""}</td>
+                        <td>${fields["nhaXB"]||""}</td>
+                        <td>${fields["namXB"]||""}</td>                  
+                        <td style="color:black;">Đã được mượn</td>                                                  
+                        </tr>`
+                    )
+                }
+                else{
+                    $("#sach-table tbody").prepend(
+                        `<tr>
+                        <td>${fields["maSach"]||""}</td>
+                        <td>${fields["tenSach"]||""}</td>
+                        <td>${fields["tenTG"]||""}</td>
+                        <td>${fields["loaiSach"]||""}</td>
+                        <td>${fields["nhaXB"]||""}</td>
+                        <td>${fields["namXB"]||""}</td>                  
+                        <td style="color:black;">Có thể mượn</td>                                                  
+                        </tr>`
+                    )
+                }
+               
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+            
+        }
+    })
+}) 
+
+
+</script>
+{% endblock %}

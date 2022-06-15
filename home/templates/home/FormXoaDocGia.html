@@ -1,0 +1,115 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form action="/home/DeleteDocGia/" method="post">
+    {% csrf_token %}
+    
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+
+    <input type="submit" name="Xóa" id="xoa_dg" value="Xóa đọc giả">
+</form>
+    <br> 
+    <br>
+    <h1>Xóa Theo Danh Sach Doc Gia</h1>
+<table border="1" class="table table-striped table-sm" >
+    {% if ds%}
+            <td style="color:black;">Mã Đọc Giả</td>
+            <td style="color:black;">Tên đọc giả </td>
+            <td style="color:black;">Ngày Sinh </td>
+            <td style="color:black;">Giới Tính</td>
+            <td style="color:black;"> Số điện thoại </td>
+            <td style="color:black;">Địa chỉ</td> 
+        {% for x in ds%}
+        <tr class="record">
+            <td style="color:red;">{{x.maDG}}</td>
+            <td style="color:red;">{{x.tenDG}} </td>
+            <td style="color:red;"> {{x.ngaySinh| date:"d-m-Y"}}</td>
+            <td style="color:red;">{{x.gioiTinh}} </td>
+            <td style="color:red;"> {{x.SDT}}</td>
+            <td style="color:red;">{{x.diaChi}}</td> 
+            <td><a href="/home/delete_DG/{{ x.id }}" class="delete_dg" method="post"><button>Xóa</button></a></td>
+            
+        </tr>
+         {% endfor %}
+    {% else %}
+        <h3 style="color:red;">Không có dữ liệu nào</h3>
+    {% endif %}
+</table>
+
+{% endblock %}
+{% block javascript %}
+<script>
+    $(".delete_dg").on("click", function (e) {
+        e.preventDefault();
+        // get the nickname
+        var $this = $(this);
+        // GET AJAX request
+        if (confirm("Xóa bản ghi?")){
+            $.ajax({
+                url: $this.attr("href"),
+                type : "GET",
+                dataType: "json",
+                success: function(response){
+                    if (response.message == 'success'){
+                        $this.parents('.record').fadeOut("slow",function(){
+                            $this.parents('.record').remove();
+                        });
+                    }
+                    else{
+                        alert(response.message);
+                    }
+                },
+                error: function(response){
+                    console.log("ERROR!!!");
+                },
+            })
+       
+        }
+    })
+
+    $("#id_maDG").focusout(function (e) {
+        e.preventDefault();
+        // get the nickname
+        var maDG = $(this).val();
+        // GET AJAX request
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'validate_nickname' %}",
+            data: {"maDG": maDG },
+            success: function (response) {
+                // if not valid user, alert the user
+                if(response["valid"]){
+                    alert("Mã đọc giả bạn nhập không tồn tại");
+                    var maDG = $("#id_maDG");
+                    maDG.val("")
+                }
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        })
+    })
+    /* $("#xoa_dg").on("click", function (e) {
+        var data = $("#id_maDG").val()
+        e.preventDefault();
+        if (confirm("Xóa bản ghi?")){
+        $.ajax({
+            url: "{% url 'xoaDG_index' %}",
+            type : "POST",
+            data: {"maDG": data , 'CSRFToken': getCSRFTokenValue()},
+            success: function(response){
+                if (response.message == 'success'){
+                   alert("Xóa thành công")
+                }
+                else{
+                    alert(response.message);
+                }
+            },
+            error: function(response){
+                console.log("ERROR!!!");
+            },
+        })
+    }
+    })*/
+</script>
+{% endblock %}

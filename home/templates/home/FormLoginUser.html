@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form id="login_form" action="/home/Login/" method="post">
+    {% csrf_token %}
+    <label for="">Nhập tên đăng nhập</label><br>{{form.username}}<br>
+    <label for="">Nhập mật khẩu</label><br>{{form.password}}<br>
+    <input class="btn btn-primary" type="submit" name="dangki" value="Đăng Nhập">
+</form>
+{% endblock %}
+{% block javascript %}
+<script>
+    $("#login_form").submit(function (e) {
+        // preventing from page reload and default actions
+        e.preventDefault(); 
+        var serializedData = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'loginUser' %}",
+            data: serializedData,
+            success: function (response) {
+                // on successfull creating object
+                if(!response["valid"]){
+                        alert("Sai tên đăng nhập hoặc mật khẩu");
+                // 1. clear the form.
+                
+                // display the newly friend to table.
+                }
+                else{
+                    window.location.href= "{% url 'mainlib' %}";
+                }
+   
+                
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                alert(response["responseJSON"]["error"]);
+            }
+        })
+    })
+</script>
+
+{% endblock %}

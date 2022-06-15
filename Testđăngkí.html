@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Nhận dữ liệu từ Text box, password, hidden field </h1>
+<form method="POST">
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="maDG">Nhập mã đọc giả</label><br>
+        <input type="text" name="maDG" id="maDG"><br>
+        <label for="tenDG">Nhập họ tên đọc giả</label><br>
+        <input type="text" name="tenDG" id="tenDG"><br>
+        <label for="ngaySinh">Nhập ngày sinh đọc giả</label><br>
+        <input type="text" name="ngaySinh" id="ngaySinh"><br>
+        <label for="maSV">Nhập mã sinh viên KMA</label><br>
+        <input type="text" name="maSV" id="maSV"><br>
+        <label for="SDT">Nhập số điện thoại</label><br>
+        <input type="text" name="SDT" id="SDT"><br>
+        <label for="diaChi">Nhập địa chỉ đọc giả</label><br>
+        <input type="text" name="diaChi" id="diaChi"><br><br>
+        <input type="submit" name="dangki" value="Đăng Kí">
+        <input checked="checked" type="checkbox" name="status" value="True" id="id_status" />
+    </form>
+</form>
+</body>
+</html>

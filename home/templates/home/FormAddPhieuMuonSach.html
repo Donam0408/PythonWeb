@@ -1,0 +1,110 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<form id="pms_form" action="/home/AddPhieuMuonSach/" method="post">
+    {% csrf_token %}
+    
+    
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+
+    
+    <label for="">Nhập mã sách</label><br> {{form.maSach}}<br>
+    
+
+    <label for="">Nhập ngày mượn(tháng /ngày/năm)</label><br>{{form.ngayMuon}}<br>
+
+
+    <label for="">Nhập ngày hẹn trả(tháng /ngày/năm)</label><br>{{form.ngayHenTra}}<br>
+    <br>
+
+    <input  class="btn btn-primary" type="submit" name="dangki" value="Đăng Kí">
+</form>
+
+
+{% endblock %}
+{% block javascript %} 
+<script>
+$("#id_maDG").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maDG = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'validate_nickname' %}",
+        data: {"maDG": maDG },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(response["valid"]){
+                alert("Mã đọc giả bạn nhập không tồn tại");
+                var maDG = $("#id_maDG");
+                maDG.val("")
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+
+$("#id_maSach").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maSach = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'validate_sach2' %}",
+        data: {"maSach": maSach,
+        csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val()
+     },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(!response["valid"]){
+                alert("Mã sách bạn nhập không tồn tại");
+                var maDG = $("#id_maSach");
+                maDG.val("")
+            }
+            else{
+                if(response.mess == 1){
+                    alert("Sách đã được mượn");
+                    var maDG = $("#id_maSach");
+                    maDG.val("")
+                }                
+            }
+
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+$("#pms_form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var serializedData = $(this).serialize();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'AddPhieuMuonSach' %}",
+        data: serializedData,
+        success: function (response) {
+            // on successfull creating object
+            if(!response["valid"]){
+                    alert("Đăng kí mượn sách  thành công");
+            // 1. clear the form.
+            $("#pms_form").trigger('reset');
+            // display the newly friend to table.
+            }
+            else{
+                alert("Ngày hẹn trả bạn nhập không hợp lệ");
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+        }
+    })
+})
+</script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'home/base.html' %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+{% block content %} 
+<div class="container-fluid">
+    <form id="DG-form" action="/home/SaveDocGia/" method="post">
+        <div class="row">    
+        {% csrf_token %}
+    
+        <div class="form-group col-4">
+                <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+            
+                
+                <label for="">Nhập tên đọc giả</label><br> {{form.tenDG}}<br>
+                
+                
+                <label for="">Nhập ngày sinh đọc giả(tháng sinh/ngày sinh/ năm sinh)</label><br>{{form.ngaySinh}}<br>
+
+
+                <label for="">Nhập giới tính đọc giả</label><br>{{form.gioiTinh}}<br>
+
+
+                <label for="">Nhập số điện thoại đọc giả</label><br>{{form.SDT}}<br>
+                
+                
+                <label for="">Nhập địa chỉ đọc giả</label><br>{{form.diaChi}}<br>
+
+                <input type="submit" class="btn btn-primary" name="dangki" value="Đăng Kí">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    $("#DG-form").submit(function (e) {
+    // preventing from page reload and default actions
+    e.preventDefault(); 
+    var serializedData = $(this).serialize();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'saveDG' %}",
+        data: serializedData,
+        success: function (response) {
+            // on successfull creating object
+            if(!response["valid"]){
+                    alert("Tạo đọc giả thành công");
+            // 1. clear the form.
+            $("#DG-form").trigger('reset');
+            // 2. focus to nickname input 
+            $("#id_maDG").focus();
+
+            // display the newly friend to table.
+            }
+            
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+        }
+    })
+}) 
+
+$("#id_maDG").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maDG = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'validate_nickname' %}",
+        data: {"maDG": maDG },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(!response["valid"]){
+                alert("Mã đọc giả bạn nhập đã tồn tại");
+                var maDG = $("#id_maDG");
+                maDG.val("")
+                maDG.focus()
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+</script>
+{% endblock %}

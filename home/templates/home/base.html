@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Quản lý thư viện KMA</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Quan ly thu vien</h1>
+    </div>
+    <div class="menu">
+        <ul>
+            <li>Tao Doc Gia</li>
+            <li>Xoa Doc Gia</li>
+            <li>Sua Doc Gia</li>
+        </ul>
+    </div>
+    <div class="content">
+        {% block user %} 
+        {% endblock %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+        {% block content %} 
+        {% endblock %}
+        {% block javascript %}
+        {% endblock javascript %}
+        
+    </div>
+</body>
+</html>

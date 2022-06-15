@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<h1>Danh Sach Doc Gia</h1>
+<ul>
+    {% if dg%}
+         <li style="color:red;"> {{dg.maDG}} | {{dg.tenDG}} | {{dg.ngaySinh |date:"d-m-Y"}} | {{dg.SDT}}| {{dg.diaChi}} </li>  
+    {% else %}
+        <h3 style="color:red;">Không có dữ liệu nào</h3>
+    {% endif %}
+</ul>  
+ {% endblock %}

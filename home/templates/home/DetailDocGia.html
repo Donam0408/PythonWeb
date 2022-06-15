@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+<h1>Danh Sach Doc Gia</h1>
+<div class="container-fluid">
+<table border="1" class="table table-striped table-sm">
+    {% if ds%}
+    <thead>
+        <tr>
+            <td style="color:red;">Mã Đọc Giả</td>
+            <td style="color:red;">Tên đọc giả </td>
+            <td style="color:red;">Ngày Sinh </td>
+            <td style="color:red;">Giới Tính</td>
+            <td style="color:red;"> Số điện thoại </td>
+            <td style="color:red;">Địa chỉ</td> 
+        </tr>
+    </thead>
+    <tbody>
+        {% for x in ds%}
+        <tr>
+            <td style="color:red;">{{x.maDG}} </td>
+            <td style="color:red;">{{x.tenDG}} </td>
+            <td style="color:red;"> {{x.ngaySinh | date:"d-m-Y"}}</td>
+            <td style="color:red;">{{x.gioiTinh}} </td>
+            <td style="color:red;"> {{x.SDT}}</td>
+            <td style="color:red;">{{x.diaChi}}</td> 
+            
+        </tr>
+         {% endfor %}
+    </tbody>
+    {% else %}
+        <h3 style="color:red;">Không có dữ liệu nào</h3>
+    {% endif %}
+</table>
+</div>       
+ {% endblock %}
