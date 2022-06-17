@@ -4,19 +4,26 @@
 <form action="/home/AlterSach/" method="post" id="sach-form">
     {% csrf_token %}
     
-    <label for="">Nhập mã sách cần sửa</label><br>{{form.maSach}}<br>
+    <label for="">Nhập mã sách cần sửa</label><br><input type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
     <h3>Sửa thông tin sách</h3>
-    <label for="">Nhập tên sách</label><br> {{form.tenSach}}<br>
+    <label for="">Nhập tên sách</label><br>  <input type="text" name="tenSach" maxlength="100"  id="id_tenSach"><br>
     
-    <label for="">Nhập loại sách</label><br>{{form.loaiSach}}<br>
+    <label for="">Nhập loại sách</label><br><input type="text" name="loaiSach" maxlength="50" id="id_loaiSach"><br>
 
-    <label for="">Nhập tác giả</label><br>{{form.tenTG}}<br>
+    <label for="">Nhập tác giả</label><br><input type="text" name="tenTG" maxlength="100" id="id_tenTG"><br>
 
-    <label for="">Nhập nhà xuất bản</label><br>{{form.nhaXB}}<br>
+    <label for="">Nhập nhà xuất bản</label><br><input type="text" name="nhaXB" maxlength="100"  id="id_nhaXB"><br>
 
-    <label for="">Nhập năm xuất bản</label><br>{{form.namXB}}<br>
+    <label for="">Nhập năm xuất bản</label><br><input type="number" name="namXB" id="id_namXB"><br>
 
-    <label for="">Trạng thái sách trong thư viện(tích nếu sách có thể mượn)</label><br>{{form.trangThaiSach}}<br>
+    <label for="">Trạng thái sách </label><br><select name="trangThaiSach" id="id_trangThaiSach">
+        <option value="0" selected>Có thể mượn</option>
+      
+        <option value="1">Không thể mượn</option>
+      
+        
+      
+      </select><br><br>
 
 
     <input class="btn btn-primary" type="submit" name="dangki" value="Sửa">
@@ -35,9 +42,9 @@
         {% for x in ds%}
         <tr>
             <td style="color:red;">{{x.maSach}}</td>
-            <td style="color:red;">{{x.tenSach}} </td>
-            <td style="color:red;">{{x.tenTG}}</td> 
+            <td style="color:red;">{{x.tenSach}} </td> 
             <td style="color:red;"> {{x.loaiSach}}</td>
+            <td style="color:red;">{{x.tenTG}}</td>
             <td style="color:red;">{{x.nhaXB}} </td>
             <td style="color:red;"> {{x.namXB}}</td>
             {% if x.trangThaiSach %}

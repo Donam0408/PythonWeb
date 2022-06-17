@@ -37,8 +37,8 @@ class TaiKhoan(models.Model):
 class MuonTraSach(models.Model):
     maDG = models.CharField(max_length=100)
     maSach = models.CharField(max_length=100)
-    ngayMuon = models.DateField(blank= True)
-    ngayHenTra = models.DateField(blank= True)
+    ngayMuon = models.DateField()
+    ngayHenTra = models.DateField()
     ngayTra = models.DateField(blank= True,null=True)
     trangThai = models.BooleanField(default=False)
 

@@ -1,7 +1,8 @@
 
 from asyncio.windows_events import NULL
 from collections import UserList
-from contextlib import nullcontext
+from datetime import date, datetime
+
 from pickle import FALSE, TRUE
 from urllib import response
 from wsgiref.handlers import format_date_time
@@ -189,11 +190,17 @@ class SuaDocGia(LoginRequiredMixin,View):
         diaChi = request.POST.get("diaChi", None)        
         if DocGia.objects.filter(maDG = maDG).exists():
                 docgia = DocGia.objects.get(maDG = maDG)
-                docgia.tenDG = tenDG
-                docgia.ngaySinh = ngaySinh
-                docgia.gioiTinh = gioiTinh
-                docgia.SDT = SDT
-                docgia.diaChi = diaChi
+                if tenDG.strip():
+                 docgia.tenDG = tenDG
+                if ngaySinh.strip():
+                 docgia.ngaySinh = ngaySinh
+                if gioiTinh.strip():
+                 docgia.gioiTinh = gioiTinh
+                if SDT.strip():
+                 docgia.SDT = SDT
+                if diaChi.strip():
+                 docgia.diaChi = diaChi
+                 
                 docgia.save()
                 return JsonResponse({"valid":True}, status=200)  
         else:
@@ -287,14 +294,19 @@ class SuaSach(LoginRequiredMixin,View):
                 trangThaiSach = request.POST.get("trangThaiSach", None)      
         if Sach.objects.filter(maSach = maSach).exists():
                 sach = Sach.objects.get(maSach = maSach)
-                sach.tenSach = tenSach
-                sach.tenTG = tenTG
-                sach.loaiSach = loaiSach
-                sach.nhaXB = nhaXB
-                sach.namXB = namXB
-                if trangThaiSach == True:
+                if tenSach.strip():
+                        sach.tenSach = tenSach
+                if tenTG.strip():
+                        sach.tenTG = tenTG
+                if loaiSach.strip():
+                        sach.loaiSach = loaiSach
+                if nhaXB.strip():
+                        sach.nhaXB = nhaXB
+                if namXB.strip():
+                        sach.namXB = namXB
+                if trangThaiSach == '0':
                         sach.trangThaiSach = False
-                else:
+                elif trangThaiSach == '1':
                         sach.trangThaiSach = True
                         
                 sach.save()
@@ -371,6 +383,7 @@ class AddPhieuMuonSach(LoginRequiredMixin,View):
                 return JsonResponse({"valid":True}, status=200)    
         return JsonResponse({"error": pms_data.errors}, status=400) 
 # Trả sách 
+
 class TraSach(LoginRequiredMixin,View):
  login_url = 'loginUser'
  def get(self, request):
@@ -382,14 +395,17 @@ class TraSach(LoginRequiredMixin,View):
         return render(request, "home/FormTraSach.html",{'form':form, 'ds':pms})
  def post(self, request):
   if request.is_ajax and request.method == "POST":
-        pms_data = MuonTraSachForm(request.POST)
-        if pms_data.is_valid():
-         docgia_id  = pms_data.cleaned_data['maDG']  
-         sach_id = pms_data.cleaned_data['maSach']
-         ngayTra = pms_data.cleaned_data['ngayTra']
-         if MuonTraSach.objects.filter(maSach = sach_id, maDG = docgia_id).exists():       
+   docgia_id = request.POST.get("maDG", None)
+   sach_id = request.POST.get("maSach", None)
+   ngayTra = request.POST.get("ngayTra", None)
+   if MuonTraSach.objects.filter(maSach = sach_id, maDG = docgia_id).exists():       
                 pms = MuonTraSach.objects.get(maDG = docgia_id ,maSach = sach_id, trangThai = False)
-                if ngayTra < pms.ngayHenTra: 
+                format = '%Y-%m-%d'
+                date_time_python = datetime.strptime(ngayTra, format)
+                ngayHenTra = pms.ngayMuon
+                ngayHenTra_str =  date.strftime(ngayHenTra,format)
+                ngayHenTra_date = datetime.strptime(ngayHenTra_str, format)
+                if date_time_python < ngayHenTra_date: 
                     return JsonResponse({"valid":True, "mess": 1}, status=200)    
                 sach = Sach.objects.get(maSach = sach_id)
                 pms.ngayTra = ngayTra
@@ -398,9 +414,9 @@ class TraSach(LoginRequiredMixin,View):
                 sach.trangThaiSach = False
                 sach.save()
                 return JsonResponse({"valid":True}, status=200)
-         else:
+   else:
                 return JsonResponse({"valid":False}, status=200)
-        return JsonResponse({"error": pms_data.errors}, status=400)
+  return JsonResponse({"error": "ERROR"}, status=400)
                
                 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
