@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        {% load static %}
+        <link type="image/x-icon" href="/static/content/images/favicon.png" rel="Shortcut Icon">
+    
+        <title>Quản Lý Thư Viện </title>
+    
+    
+        <link rel="alternate" media="handheld" href="https://sachtot.vn/" />
+    
+    
+        <link rel="stylesheet" href='{%static "/content/themes/base/jquery-ui.css"%}'>
+        <script src="/static/content/js/jquery.min.js"  type="text/javascript"></script>
+        <script src="/static/content/js/jquery-1.10.2.js" ></script>
+        <script src="/static/content/js/jquery-ui.js" ></script>
+        <script src="/static/content/js/event_m.js" ></script>
+        <script src="/static/ckeditor/ckeditor.js" type="text/javascript"></script>
+    
+        <link rel="stylesheet" href="/static/content/css/style.css" />
+    
+    
+        <link rel="stylesheet" type="text/css" href="/static/content/css/nivo-slider.css" />
+        <link rel="stylesheet" href="/static/content/css/jquery.custombox.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/static/content/css/table.css">
+        
+    
+        <!-- END GOOGLE SEARCH META GOOGLE SEARCH STRUCTURED DATA FOR ARTICLE && GOOGLE BREADCRUMB STRUCTURED DATA-->
+    
+    
+    </head>
+
+<body>
+    
+
+    <div style="display: block;">
+
+        <header>
+            <div class="wrapper" id="divLoginButton">
+                <div class="logo_header">
+                    <div class="lg_mbf">
+                        <a href="/" title="Sách hay đọc ngay tay">
+                            <h1>S&#225;ch điện tử</h1>
+                            <i class="logo_mobifone"></i>
+                        </a>
+                    </div>
+                
+                    <div class="lg_mbook">
+                        <a href="{% url 'registerUser'%}" style="font-size:18px"><i class="icon_dangky"></i>Đăng ký</a>
+                        <a href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav_header">
+                <div class="wrapper">
+                    <div class="wrapper">
+                        <ul>
+                            <li class=""><a href="{% url 'mainlib' %}">TRANG CHỦ</a></li>
+                            <li class="kind-book ">
+                                <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
+                                <div class="all-kind">
+    
+                                </div>
+                            </li>
+                            <li class="kind-book ">
+                                <h2><a href="{% url 'ListDocGia' %}" class="">Quản Lý Đọc Giả</a></h2>
+                                <div class="all-kind">
+    
+    
+                                </div>
+                            </li>
+                            <li class="kind-book ">
+                                <h2><a href="{% url 'ListPMS' %}" class="">Quản Lý Mượn Trả Sách</a></h2>
+                                <div class="all-kind">
+                                    <ul class="column-kind">
+    
+                                    </ul>
+    
+                                </div>
+                            </li>
+                          
+    
+    
+                        </ul>
+                   
+                </div>
+            </nav>
+            <div style="clear: both;"></div>
+        </header>
+
+        <div class="main">
+            <div class="wrapper">
+
+
+                <div id="slide">
+                    <div class="slide-banner">
+                        <div id="slider" class="nivoSlider">
+                            <a href="javascript:void(0);" onclick="makeslideshow('282','B')"
+                                title="Thế gia danh m&#244;n">
+                                <img src="https://url.sachtot.vn/res/Avatar/201604271138490001995_slide5_web.jpg"
+                                    alt="Thế gia danh m&#244;n"></a>
+                            <a href="javascript:void(0);" onclick="makeslideshow('7624','B')"
+                                title="Những năm th&#225;ng y&#234;u lầm">
+                                <img src="https://url.sachtot.vn/res/Avatar/201604271146520001754_slide3_web.jpg"
+                                    alt="Những năm th&#225;ng y&#234;u lầm"></a>
+                            <a href="javascript:void(0);" onclick="makeslideshow('3579','B')"
+                                title="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;">
+                                <img src="https://url.sachtot.vn/res/Avatar/201510281644040001953_thongthai_web.jpg"
+                                    alt="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;"></a>
+                            <a href="javascript:void(0);" onclick="makeslideshow('777','B')"
+                                title="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại">
+                                <img src="https://url.sachtot.vn/res/Avatar/201510281643000001805_dungkhi_web.jpg"
+                                    alt="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại"></a>
+                            <a href="javascript:void(0);" onclick="makeslideshow('2582','B')"
+                                title="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh">
+                                <img src="https://url.sachtot.vn/res/Avatar/201510281640150001078_98thuthuat_web.jpg"
+                                    alt="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh"></a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content_main">
+
+                    <div class="breadcum">
+                        <div class="p5">
+                            <a href="/">
+                                <img src="/static/content/images/home.png" alt="icon home" class="ico_home" /></a><img
+                                src="/static/content/images/icon_arrow.png" alt="arrow" class="arrow" /><span
+                                class="active">Quản Lý Sách</span>
+                        </div>
+                    </div>
+                    <div class="col_left">
+                        <div class="cate_left">
+                            <div class="title_cate">Chức năng </div>
+                            <div class="content_cate_list">
+                                <ul>
+                                    <li><a href="{% url 'ListSach'%}" title="Thêm Sách">Danh sách sách</a></li>
+                                    <li><a href="{% url 'saveSach'%}" title="Thêm Sách">Thêm Sách</a></li>
+                                    <li><a href="{% url 'alterSach'%}"
+                                            title="Sửa Sách">Sửa Sách</a></li>
+                                    <li><a href="{% url 'XoaSach'%}"
+                                            title="Xóa Sách">Xóa Sách</a></li>
+                                    <li><a href="{% url 'FindSach'%}"
+                                            title="Tra cứu thông tin sách">Tra cứu thông tin sách</a></li>                                  
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col_right" style="width: 808px;">
+                        <div class="left_content">
+                            {% block content %}
+                            {% endblock %}
+                            
+                            {% block javascript %}
+                             {% endblock %}
+                        </div>
+                    </div>
+
+                </div>
+                <div style="clear: both;"></div>
+                <footer>
+
+                    <div class="wrapper">
+                        <div class="footer_info">
+                            <nav class="menu-bottom">
+                                <a href="/">Trang chủ</a>
+                                <a href="/sach-dien-tu">Sách điện tử</a>
+                                <a href="/sach-noi">Sách nói</a>
+
+                                <a href="/gioi-thieu.html">Giới thiệu</a>
+                                <a href="/huong-dan.html">Hướng dẫn</a>
+                                <a href="/dieu-khoan-su-dung.html">Điều khoản sử dụng</a>
+                                <a href="/chinh-sach-bao-mat.html">Chính sách bảo mật</a>
+                                <a href="/lien-he.html">Liên hệ</a>
+                            </nav>
+                            <p class="menu-bottom" style="display:none;">
+                                <a href="https://sachtot.vn/">đọc sách trực tuyến</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu">đọc sách điện tử online</a> |
+                                <a href="https://sachtot.vn/">đọc sách online</a> |
+                                <a href="https://sachtot.vn/sach-noi">sách nói online</a> |
+                                <a href="https://sachtot.vn/sach-noi">sách nói miễn phí</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu/sach-thieu-nhi-c-010">ebook sách thiếu nhi</a>
+                                |
+                                <a href="https://sachtot.vn/sach-dien-tu/sach-nuoi-day-con-c-0167">ebook sách nuôi dạy
+                                    con</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu/tho-tan-van-tuy-but-c-0006">ebook thơ hay</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu/kinh-doanh-dau-tu-c-0002">ebook kinh doanh
+                                    hay</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu/cham-soc-suc-khoe-lam-dep-c-0003">sách chăm sóc
+                                    sức khỏe</a> |
+                                <a href="https://sachtot.vn/sach-dien-tu/ngon-tinh-c-0015">ebook ngôn tình hay</a> |
+                                <a href="https://sachtot.vn/sach-noi/thieu-nhi-c-0018">sách nói thiếu nhi</a> |
+                                <a href="https://sachtot.vn/sach-noi/kinh-doanh-lam-giau-c-0016">sách nói kinh doanh</a>
+                                |
+                                <a href="https://sachtot.vn/sach-noi/tieu-thuyet-hoi-ky-c-0019">audio tiểu thuyết
+                                    hay</a> |
+                                <a href="https://sachtot.vn/sach-noi/truyen-c-0189">audio truyện ngắn</a> |
+                                <a href="https://sachtot.vn/truyen-tranh">truyện tranh hay nhất</a>
+
+                            </p>
+                            <div class="ft_info_left">
+                                <img src="/static/content/images/logo.png" alt="logo sachtot.vn">
+                                <p style="margin-top: 20px;"><a href="/">sachtot.vn</a></p>
+                                <p>Copyright © 2014 Lemonmedia</p>
+                                <a class="regbct"
+                                    href="http://online.gov.vnPage/CustomWebsiteDisplay.aspx?DocId=8240">
+                                    <img alt="" title=""
+                                        src="http://online.gov.vn/PublicImages/2015/08/27/11/20150827110756-dathongbao.png"
+                                        width="" style="width: 96px; height: 62px;">
+                                </a>
+                            </div>
+                            <div class="ft_info_right">
+                                <p class="f14 bold">
+                                    CÔNG TY CỔ PHẦN TRUYỀN THÔNG QUẢ CHANH
+                                </p>
+                                <p>
+                                    Số 223 Phố Khương Hạ mới, Khương Đình, Thanh Xuân, Hà Nội
+                                </p>
+                                <p>
+                                    DKKD số 0105333831 do SKHDT Hà Nội cấp 27/5/2011
+                                </p>
+
+                                <p>
+                                    Website: lemonmedia.vn - Điện thoại: 04.3.5544860
+                                </p>
+
+                            </div>
+                            <div class="clear"></div>
+
+                        </div>
+                    </div>
+                </footer>
+
+
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        
+        <div id='divLogon'></div>
+        <div id='divMsgBox'></div>
+        <a href="#" class="scrollup" style="display: inline;">Scroll</a>
+    </div>
+
+
+
+    <script type="text/javascript" src="/static/content/js/jquery.nivo.slider.js"></script>
+
+
+
+    <script src="/static/content/js/jquery.carouFredSel-2.1.3.js" type="text/javascript"></script>
+    <script src='/static/content/js/jquery.rating.js' type="text/javascript"></script>
+    <script src='/static/content/js/event_m.js' type="text/javascript"></script>
+    <script src='/static/content/js/data_m.js' type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+    </script>
+    <!--Google Analytis-->
+    
+</body>
+
+</html>

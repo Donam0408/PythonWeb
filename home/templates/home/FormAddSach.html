@@ -1,10 +1,12 @@
-{% extends 'home/base.html' %}
-
+{% extends 'home/base_bookManager.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% block content %} 
-<form id="sach-form" action="/home/AddSach/" method="post">
+<form id="sach-form" action="/home/AddSach/" method="post" enctype="multipart/form-data"  >
     {% csrf_token %}
     
-    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
+    <label for="">Nhập mã sách</label><br><input class="input" type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
     
     <label for="">Nhập tên sách</label><br> {{form.tenSach}}<br>
     
@@ -16,21 +18,38 @@
 
     <label for="">Nhập năm xuất bản</label><br>{{form.namXB}}<br>
 
+    <label for="">Thêm hình ảnh cho sách</label><br>{{form.biaSach}}<br>
+
     
 
     <input  class="btn btn-primary" type="submit" name="dangki" value="Thêm Sách">
 </form>
 {% endblock %}
 {% block javascript %}
+
 <script>
     $("#sach-form").submit(function (e) {
     // preventing from page reload and default actions
     e.preventDefault(); 
     var serializedData = $(this).serialize();
+    if (window.FormData) {
+        formData = new FormData();
+        formData.append('maSach',$("#id_maSach").val());
+        formData.append('tenSach',$("#id_tenSach").val());
+        formData.append('loaiSach',$("#id_loaiSach").val());
+        formData.append('tenTG',$("#id_tenTG").val());
+        formData.append('nhaXB',$("#id_nhaXB").val());
+        formData.append('namXB',$("#id_namXB").val());
+        
+        formData.append( 'csrfmiddlewaretoken' , $('input[name = csrfmiddlewaretoken]').val());
+        formData.append('biaSach', $('input[type=file]')[0].files[0]);
+    }
     $.ajax({
         type: 'POST',
         url: "{% url 'saveSach' %}",
-        data: serializedData,
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function (response) {
             // on successfull creating object
             if(!response["valid"]){
@@ -76,3 +95,4 @@ $("#id_maSach").focusout(function (e) {
 })
 </script>
 {% endblock %}
+

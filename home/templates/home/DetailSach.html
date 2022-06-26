@@ -1,35 +1,62 @@
-{% extends 'home/base.html' %}
-
+{% extends 'home/base_bookManager.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% block content %} 
-<h1>Danh Sach Sach Trong Thu Vien</h1>
-<table border="1" class="table table-striped table-sm">
-    {% if ds%}
-            <td style="color:red;">Mã Sách</td>
-            <td style="color:red;">Tên Sách </td>
-            <td style="color:red;">Loại Sách</td>
-            <td style="color:red;">Tác Giả</td>
-            <td style="color:red;">Nhà xuất bản</td>
-            <td style="color:red;">Năm xuất bản</td>
-            <td style="color:red;">Trạng thái</td>
 
-        {% for x in ds%}
-        <tr>
-            <td style="color:red;">{{x.maSach}}</td>
-            <td style="color:red;">{{x.tenSach}} </td>
-            <td style="color:red;">{{x.tenTG}}</td> 
-            <td style="color:red;"> {{x.loaiSach}}</td>
-            <td style="color:red;">{{x.nhaXB}} </td>
-            <td style="color:red;"> {{x.namXB}}</td>
-            {% if x.trangThaiSach %}
-                    <td style="color:red;">Đã được mượn</td> 
-            {% else %}
-                    <td style="color:red;">Có thể mượn</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    {% else %}
-        <h3 style="color:red;">Không có dữ liệu nào</h3>
-    {% endif %}
-</table>
+
+
+
+    <div class="left_content">
+        <div class="box_cate">
+            <div class="title_box"><i class="icon_book" ></i><span>Sách Trong Thư Viện</span></div>
+            <div class="content_box">
+                <div class="list_book list_book_scoll">
+                   
+                    {% if ds%}
+                    <ul>
+                        
+                        {% for x in ds%}
+                        <li>
+                
+                            <div class="thumb_list">
+                                <img src="/home/media/{{x.biaSach}}"
+                                    alt="{{x.tenSach}}">
+                                <span class="hover_book capition simple-caption">
+                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
+                
+                                </span>
+                
+                            </div>
+                                
+                                <a href="/home/inf_sach/{{ x.id }}" class="delete_sach" method="post"><h3 class="name">{{x.tenSach}}</h3></a>
+                                          
+                        </li>
+                        {% endfor %}
+                        
+                
+                    </ul>
+                
+                    {% else %}
+                    <h3 style="color:red;">Không có dữ liệu nào</h3>
+                {% endif %}
+                
+                
+                        
+                </div>
+
+            </div>
+        </div>
+        
+       
+    </div>
+    
+
+
+
+
+
+
         
  {% endblock %}

@@ -2,6 +2,8 @@
 from asyncio.windows_events import NULL
 from collections import UserList
 from datetime import date, datetime
+from email.mime import image
+from operator import truediv
 
 from pickle import FALSE, TRUE
 from urllib import response
@@ -249,9 +251,10 @@ class AddSach(LoginRequiredMixin,View):
          form = NhapSachForm()
          return render(request, "home/FormAddSach.html",{'form':form})
  def post(self, request):
-        if request.is_ajax and request.method == "POST": 
-         sach_data = NhapSachForm(request.POST)
-         if sach_data.is_valid():        
+        '''request.is_ajax and'''
+        if request.method == "POST": 
+         sach_data = NhapSachForm(request.POST,request.FILES)
+         if sach_data.is_valid():       
                 sach_data.save()
                 return JsonResponse({"valid":False}, status=200) 
          else:
@@ -291,7 +294,8 @@ class SuaSach(LoginRequiredMixin,View):
                 loaiSach = request.POST.get("loaiSach", None)
                 nhaXB = request.POST.get("nhaXB", None)
                 namXB = request.POST.get("namXB", None)  
-                trangThaiSach = request.POST.get("trangThaiSach", None)      
+                trangThaiSach = request.POST.get("trangThaiSach", None)
+                
         if Sach.objects.filter(maSach = maSach).exists():
                 sach = Sach.objects.get(maSach = maSach)
                 if tenSach.strip():
@@ -304,6 +308,12 @@ class SuaSach(LoginRequiredMixin,View):
                         sach.nhaXB = nhaXB
                 if namXB.strip():
                         sach.namXB = namXB
+                try:
+                        biaSach = request.FILES['biaSach']  
+                        sach.biaSach = biaSach     
+                except:
+                        pass
+                
                 if trangThaiSach == '0':
                         sach.trangThaiSach = False
                 elif trangThaiSach == '1':
@@ -417,7 +427,12 @@ class TraSach(LoginRequiredMixin,View):
    else:
                 return JsonResponse({"valid":False}, status=200)
   return JsonResponse({"error": "ERROR"}, status=400)
-               
+
+
+def infor_sach(request,id):
+         sach_data = Sach.objects.get(id = id)
+         return render(request, "home/DetailOneSach.html", {'ds' : sach_data})
+                       
                 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Hiện thị sách có thể mượn lên trang chủ
@@ -425,11 +440,11 @@ class TraSach(LoginRequiredMixin,View):
 def mainlib(request):
         if request.method == 'GET':
                 ds = []
-                sach = Sach.objects.all().values()
+                sach = Sach.objects.filter(trangThaiSach = False)
                 pms = MuonTraSach.objects.filter(trangThai = True)
-                for x in pms:
-                        sach_data = Sach.objects.get(maSach = x.maSach)
-                        ds.append(sach_data)
+                # for x in pms:
+                #         sach_data = Sach.objects.get(maSach = x.maSach)
+                #         ds.append(sach_data)
                 return render(request, "home/TrangChu.html", {'ds' : sach})
 '''def mainlib(request):
         if request.method == 'GET':
@@ -479,11 +494,10 @@ class loginUser(View):
          form = LoginForm()
          return render(request, "home/FormLoginUser.html", {'form' : form}) 
  def post(self,request):
-  form = LoginForm(request.POST)
-  if form.is_valid():
-          
-        username1 = form.cleaned_data['username'] 
-        password1 = form.cleaned_data['password']    
+        username1 = request.POST.get("username", None)
+        password1 = request.POST.get("password", None)
+        
+        
         try:
                 user = authenticate(request, username=User.objects.get(email = username1), password=password1)  
         except:        

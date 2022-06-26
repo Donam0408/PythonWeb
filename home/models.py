@@ -3,6 +3,7 @@ from random import choices
 from django.db import models
 from multiselectfield import MultiSelectField
 
+
 # Create your models here.
 class DocGia(models.Model):
     maDG = models.CharField(max_length=50)
@@ -27,6 +28,8 @@ class Sach(models.Model):
     nhaXB = models.CharField(max_length=100)
     namXB = models.IntegerField(blank= True)
     trangThaiSach = models.BooleanField(default=True)
+    
+    biaSach = models.ImageField(upload_to='images',default = None,null = True)
     def __str__(self):
         return self.maSach
 class TaiKhoan(models.Model):

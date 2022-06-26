@@ -1,12 +1,14 @@
 from unicodedata import name
+from xml.dom.minidom import Document
 from django.urls import path
 from . import views
-
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     path('Test/', views.Test),
     #path('postDocGia/', views.postDocGia),
     
-    path('ListDocGia/', views.ListDocGia),
+    path('ListDocGia/', views.ListDocGia, name= "ListDocGia"),
     path('SaveDocGia/', views.ThemDocGia.as_view(), name= "saveDG"),
     path('get/ajax/validate/nickname', views.checkNickName, name = "validate_nickname"),
     path('FindDocGia/',views.TimDocGia.as_view(),name="find_dg"),
@@ -21,8 +23,9 @@ urlpatterns = [
     path('DeleteSach/',views.XoaSach.as_view(),name= "XoaSach"),
     path('AlterSach/',views.SuaSach.as_view(),name='alterSach'),
     path('delete_S/<int:id>',views.delete_sach, name='deleteSach'),
+    path('inf_sach/<int:id>',views.infor_sach, name='infSach'),
     path('get/ajax/validate/pms', views.checkPMS, name = "validate_pms"),
-    path('ListPMS/', views.ListPMS),
+    path('ListPMS/', views.ListPMS,name = "ListPMS"),
     path('TraSach/', views.TraSach.as_view(),name='traSach'),
     path('AddPhieuMuonSach/',views.AddPhieuMuonSach.as_view(),name="AddPhieuMuonSach"),
     path('Register/',views.registerUser.as_view(),name= "registerUser"),
@@ -33,4 +36,6 @@ urlpatterns = [
     path('Trangchu/',views.mainlib,name= "mainlib"),
    
     
-]
+] 
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

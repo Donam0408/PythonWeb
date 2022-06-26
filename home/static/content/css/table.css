@@ -1,0 +1,103 @@
+.analytics_table {
+    border-collapse: inherit;
+    overflow-y: auto;
+    border: 1px solid #cfcaca;
+    border-spacing: 0;
+    font-family: "Roboto", serif;
+}
+
+.analytics_table th,
+.analytics_table tbody td {
+    text-align: center;
+    height: 25 px;
+    min-width: 100px;
+    border-right: 1px solid #b6b7b7;
+    border-bottom: 1px solid #b6b7b7;
+    padding: 10px;
+}
+
+.analytics_table th {
+    background-color: #ebebed;
+    color: #000;
+    padding: 10px 0px;
+}
+
+.analytics_table td:first-child {
+    text-align: left;
+    padding: 10px;
+    /* width: 200px; */
+    /* display: block; */
+    font-size: 15px;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.analytics_table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.analytics_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+
+/* .analytics_table th {
+    border-right: 1px solid #f1f2f4;
+} */
+
+.analytics_table td:last-child,
+.analytics_table th:last-child {
+    border-right: none;
+}
+
+.MuiGrid-spacing-xs-3 > .MuiGrid-item {
+    padding: 12px;
+    /* overflow: auto; */
+}
+
+.analytics_table,
+.analytics_time {
+    display: inline-block;
+    /* max-height: 500px; */
+    /* max-width: 100%; */
+    position: relative;
+    overflow: auto;
+}
+
+.analytics_table thead,
+.analytics_time thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.analytics_time td:first-child {
+    display: table-cell;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 150px;
+}
+
+.analytics_table .odd,
+.analytics_time .odd {
+    background-color: #ffffff;
+}
+
+.analytics_table .even,
+.analytics_time .even {
+    background-color: #f9f9f9;
+}
+
+.analytics_time th, .analytics_time tbody td {
+    min-width: 140px;
+}
+
+.analytics_table th:first-child,
+.analytics_time th:first-child {
+    position: sticky;
+    left: 0;
+}
+

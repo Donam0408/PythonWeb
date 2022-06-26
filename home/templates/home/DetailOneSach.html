@@ -1,31 +1,40 @@
 {% extends 'home/base.html' %}
 
-{% block content %} 
-<h1>Danh Sach Sach Can Tim</h1>
-<table border="1">
-    {% if ds%}
-            <td style="color:red;">Mã Sách</td>
-            <td style="color:red;">Tên Sách </td>
-            <td style="color:red;">Loại Sách</td>
-            <td style="color:red;">Tác Giả</td>
-            <td style="color:red;">Nhà xuất bản</td>
-            <td style="color:red;">Năm xuất bản</td>
-            <td style="color:red;">Trạng thái</td>
-        <tr>
-            <td style="color:red;">{{ds.maSach}}</td>
-            <td style="color:red;">{{ds.tenSach}} </td>
-            <td style="color:red;">{{ds.tenTG}}</td> 
-            <td style="color:red;"> {{ds.loaiSach}}</td>
-            <td style="color:red;">{{ds.nhaXB}} </td>
-            <td style="color:red;"> {{ds.namXB}}</td>
-             {% if ds.trangThaiSach  %}
-                <td style="color:red;">Có thể mượn</td> 
-             {% else %}
-                <td style="color:red;">Không thể mượn</td>
-             {% endif %}
-        </tr>
-    {% else %}
-        <h3 style="color:red;">Không có dữ liệu nào</h3>
-    {% endif %}
-</table>    
- {% endblock %}
+{% block content %}
+
+<div class="content_main detail_book">
+    <div class="big_book">
+        <img src="/home/media/{{ds.biaSach}}"
+            >
+    </div>
+    <div class="info_detail_big">
+        <div class="name_info">
+            <h1>{{ds.tenSach}}</h1>
+        </div>
+        <div class="author"><span>Mã Sách:</span> <b>{{ds.maSach}}</b></div>
+        <div class="author"><span>Tác giả:</span> <b>{{ds.tenTG}}</b></div>
+        <div class="author"><span>Loại sách:</span> <b>{{ds.loaiSach}}</b></div>
+        <div class="author"><span>Nhà Xuất Bản:</span> <b>{{ds.nhaXB}}</b></div>
+        <div class="author"><span>Năm Xuất Bản:</span> <b>{{ds.namXB}}</b></div>
+
+        {% if ds.trangThaiSach  %}
+        <div class="author"><span>Trạng Thái:</span> <b>Không thể mượn</b></div>
+        {% else %}
+                <div class="author"><span>Trạng Thái:</span> <b>Có thể mượn</b></div>
+        {% endif %}
+       
+    </div>
+    <div class="box_text_details">
+        <h3 class="t_name3">Giới thiệu</h3>
+        <p><strong></p>
+
+        <p></p>
+
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+<div style="clear: both;"></div>
+{% endblock %}

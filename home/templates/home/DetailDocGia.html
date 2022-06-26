@@ -1,35 +1,39 @@
-{% extends 'home/base.html' %}
-
+{% extends 'home/base_DG.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% block content %} 
+{% load static %}
+
 <h1>Danh Sach Doc Gia</h1>
 <div class="container-fluid">
-<table border="1" class="table table-striped table-sm">
+<table border="1" class="analytics_table" >
     {% if ds%}
     <thead>
         <tr>
-            <td style="color:red;">Mã Đọc Giả</td>
-            <td style="color:red;">Tên đọc giả </td>
-            <td style="color:red;">Ngày Sinh </td>
-            <td style="color:red;">Giới Tính</td>
-            <td style="color:red;"> Số điện thoại </td>
-            <td style="color:red;">Địa chỉ</td> 
+            <th>Mã Đọc Giả</th>
+            <th>Tên đọc giả </th>
+            <th>Ngày Sinh </th>
+            <th>Giới Tính</th>
+            <th> Số điện thoại </th>
+            <th>Địa chỉ</th> 
         </tr>
     </thead>
     <tbody>
         {% for x in ds%}
         <tr>
-            <td style="color:red;">{{x.maDG}} </td>
-            <td style="color:red;">{{x.tenDG}} </td>
-            <td style="color:red;"> {{x.ngaySinh | date:"d-m-Y"}}</td>
-            <td style="color:red;">{{x.gioiTinh}} </td>
-            <td style="color:red;"> {{x.SDT}}</td>
-            <td style="color:red;">{{x.diaChi}}</td> 
+            <td>{{x.maDG}} </td>
+            <td>{{x.tenDG}} </td>
+            <td> {{x.ngaySinh | date:"d-m-Y"}}</td>
+            <td>{{x.gioiTinh}} </td>
+            <td> {{x.SDT}}</td>
+            <td>{{x.diaChi}}</td> 
             
         </tr>
          {% endfor %}
     </tbody>
     {% else %}
-        <h3 style="color:red;">Không có dữ liệu nào</h3>
+        <h3>Không có dữ liệu nào</h3>
     {% endif %}
 </table>
 </div>       
