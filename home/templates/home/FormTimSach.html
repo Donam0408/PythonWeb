@@ -3,24 +3,24 @@
 {% block content %} 
 <form action="/home/FindSach/" method="post" id="sach-form">
     {% csrf_token %}
-    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
-    <input type="submit" name="Tìm" value="Tìm"> 
+    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br><br>
+    <input class="btn btn-primary" type="submit" name="Tìm" value="Tìm"> 
     <br><br>
 </form>
 <h1>Thông tin sách cần tìm</h1>
 <ul>
     <div class="container-fluid">
-        <table border="1" class="table table-striped table-sm" id="sach-table">
+        <table border="1" class="analytics_table"  id="sach-table">
             
             <thead>
                 <tr>
-                    <td style="color:red;">Mã Sách</td>
-                    <td style="color:red;">Tên Sách </td>
-                    <td style="color:red;">Loại Sách</td>
-                    <td style="color:red;">Tác Giả</td>
-                    <td style="color:red;">Nhà xuất bản</td>
-                    <td style="color:red;">Năm xuất bản</td>
-                    <td style="color:red;">Trạng thái</td>
+                    <th>Mã Sách</th>
+                    <th>Tên Sách </th>
+                    <th>Loại Sách</th>
+                    <th>Tác Giả</th>
+                    <th>Nhà xuất bản</th>
+                    <th>Năm xuất bản</th>
+                    <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>

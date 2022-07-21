@@ -1,14 +1,17 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_DG.html' %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
 {% block content %} 
 <div class="container-fluid">
+    <br>
+    <h1>Thêm thông tin đọc giả</h1>
+
     <form id="DG-form" action="/home/SaveDocGia/" method="post">
         <div class="row">    
-        {% csrf_token %}
+            {% csrf_token %}
     
-        <div class="form-group col-4">
+            <div class="form-group col-4">
                 <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
             
                 
@@ -24,12 +27,13 @@
                 <label for="">Nhập số điện thoại đọc giả</label><br>{{form.SDT}}<br>
                 
                 
-                <label for="">Nhập địa chỉ đọc giả</label><br>{{form.diaChi}}<br>
+                <label for="">Nhập địa chỉ đọc giả</label><br>{{form.diaChi}}<br><br>
 
                 <input type="submit" class="btn btn-primary" name="dangki" value="Đăng Kí">
             </div>
         </div>
     </form>
+    <br>
 </div>
 {% endblock %}
 {% block javascript %}

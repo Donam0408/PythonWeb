@@ -1,39 +1,158 @@
-{% extends 'home/base.html' %}
 
-{% block content %} 
-<form action="/home/Register/" method="post">
-    {% csrf_token %}
-    <label for="">Nhập tên đăng nhập</label><br>{{form.username}}<br>
-    <label for="">Nhập Email</label><br>{{form.email}}<br>
-    <label for="">Nhập mật khẩu</label><br>{{form.password}}<br>
-    <input class="btn btn-primary" type="submit" name="dangki" value="Đăng Kí">
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Kí Tài Khoản</title>
+    <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/static/content/css/style.css">
+<!-- MDB -->
 
-{% block javascript %}
-<script>
-    $("#id_username").focusout(function (e) {
-        e.preventDefault();
-        // get the nickname
-        var maSach = $(this).val();
-        // GET AJAX request
-        $.ajax({
-            type: 'GET',
-            url: "{% url 'validate_user' %}",
-            data: {"username": maSach },
-            success: function (response) {
-                // if not valid user, alert the user
-                if(!response["valid"]){
-                    alert("Tên đăng nhập đã tồn tại");
-                    var maDG = $("#id_maSach");
-                    maDG.val("")
-                    
+</head>
+<body>
+    
+    <section class="vh-100 bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Tạo Tài Khoản </h2>
+
+              <form id="register_form" action="/home/Register/" method="post">
+                {% csrf_token %}
+
+                <div class="form-outline mb-4">
+                  <input type="text" name="username" maxlength="50" required id="id_username" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example1cg">Your Account</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" name="email" maxlength="50" required id="id_email" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example3cg">Your Email</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" name="password1" maxlength="50" required id="id_password1" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cg">Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" name="password2" maxlength="50" required id="id_password2" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <input class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="submit" name="dangki" value="Đăng Kí">
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Bạn đã có tài khoản? <a href="{% url 'loginUser'%}"
+                    class="fw-bold text-body"><u>Đăng Nhập</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
+></script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                
+    <script>
+        $("#id_username").focusout(function (e) {
+            e.preventDefault();
+            // get the nickname
+            var username = $("#id_username").val()
+            // GET AJAX request
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'validate_user' %}",
+                data: {"username": username },
+                success: function (response) {
+                    // if not valid user, alert the user
+                    if(!response["valid"]){
+                        alert("Tên đăng nhập đã tồn tại");
+                        var maDG = $("#id_username");
+                        maDG.val("")
+                        
+                    }
+                },
+                error: function (response) {
+                    console.log(response)
                 }
-            },
-            error: function (response) {
-                console.log(response)
-            }
+            })
         })
-    })
-</script>
-{% endblock %}
+
+        $("#register_form").submit(function (e) {
+            // preventing from page reload and default actions
+            e.preventDefault(); 
+            var username = $("#id_username").val();
+            var email = $("#id_email").val();
+            var password1 = $("#id_password1").val();
+            var password2 = $("#id_password2").val();
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'registerUser' %}",
+                data: {
+                    'username':username,
+                    'password1': password1,
+                    'password2': password2,
+                    'email': email,
+                    csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val(),
+                },
+                success: function (response) {
+                    // on successfull creating object
+                    if(!response["valid"]){
+                        window.location.href= "{% url 'loginUser' %}";
+                    // 1. clear the form.
+                    
+                    // display the newly friend to table.
+                    }
+                    else{
+                        if(response.mess == 1){
+                          alert("Mật khẩu nhắc lại không trùng khớp");
+                        } 
+                        else{
+                          alert("Đã có lỗi xảy ra");
+                        }
+                          
+                    }
+       
+                    
+                },
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert(response["responseJSON"]["error"]);
+                }
+            })
+        })
+    </script>
+
+
+</body>
+</html>

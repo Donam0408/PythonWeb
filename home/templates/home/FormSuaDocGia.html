@@ -1,6 +1,8 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_DG.html' %}
 
 {% block content %} 
+<br>
+<h1>Sửa thông tin đọc giả</h1>
 <form id="DG-form" action="/home/SuaDocGia/" method="post">
     {% csrf_token %}
     
@@ -11,7 +13,7 @@
     
     <label for="">Nhập ngày sinh đọc giả</label><br><input type="date" name="ngaySinh" class="vDateField" size="10"  id="id_ngaySinh"><br>
     
-    <label for="">Nhập giới tính đọc giả</label><br><select name="gioiTinh" id="id_gioiTinh">
+    <label for="">Nhập giới tính đọc giả</label><br><select  style="width: 160px;" name="gioiTinh" id="id_gioiTinh">
         <option value="Nữ" selected>Nữ</option>
       
         <option value="Nam">Nam</option>
@@ -23,9 +25,13 @@
     <label for="">Nhập số điện thoại đọc giả</label><br><input type="text" name="SDT" maxlength="100" id="id_SDT"><br>
     
     <label for="">Nhập địa chỉ đọc giả</label><br><input type="text" name="diaChi" maxlength="100" id="id_diaChi"><br>
+    <br>
+    
 
-    <input type="submit" name="dangki" value="Update">
+
+    <input class="btn btn-primary" type="submit" name="dangki" value="Update">
 </form>
+<br>
 {% endblock %}
 {% block javascript %}
 <script>

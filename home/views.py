@@ -439,13 +439,18 @@ def infor_sach(request,id):
 @login_required(login_url = 'loginUser')
 def mainlib(request):
         if request.method == 'GET':
-                ds = []
-                sach = Sach.objects.filter(trangThaiSach = False)
+                #ds = []
+                
+                sachdc = Sach.objects.filter(loaiSach = 'Đại Cương', trangThaiSach = False)
+                sachattt = Sach.objects.filter(loaiSach = 'ATTT', trangThaiSach = False)
+                sachcntt = Sach.objects.filter(loaiSach = 'CNTT', trangThaiSach = False)
+                sachtk= Sach.objects.filter(loaiSach = 'Tham Khảo', trangThaiSach = False)
+                
                 pms = MuonTraSach.objects.filter(trangThai = True)
                 # for x in pms:
                 #         sach_data = Sach.objects.get(maSach = x.maSach)
                 #         ds.append(sach_data)
-                return render(request, "home/TrangChu.html", {'ds' : sach})
+                return render(request, "home/TrangChu.html", {'dc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk})
 '''def mainlib(request):
         if request.method == 'GET':
                 sach = Sach.objects.filter(trangThaiSach = True)
@@ -470,10 +475,17 @@ class registerUser(View):
  def post(self,request):
         username = request.POST.get('username')
         email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = User.objects.create_user(username,email,password)
-        user.save()
-        return HttpResponseRedirect(reverse('loginUser'))
+        password1 = request.POST.get('password1')
+        password2 =  request.POST.get('password2')
+        if password1 == password2:
+                try:
+                        user = User.objects.create_user(username,email,password1)
+                        user.save()
+                        return JsonResponse({"valid":False}, status = 200)
+                except:
+                        return JsonResponse({"valid":True}, status = 200)
+        else:
+                        return JsonResponse({"valid":True, "mess": 1}, status = 200)
        
 #Check user
 def checkUser(request):

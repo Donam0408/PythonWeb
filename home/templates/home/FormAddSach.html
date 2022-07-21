@@ -1,12 +1,14 @@
 {% extends 'home/base_bookManager.html' %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+
 {% block content %} 
+<h1>Thêm thông tin sách</h1>
 <form id="sach-form" action="/home/AddSach/" method="post" enctype="multipart/form-data"  >
     {% csrf_token %}
     
-    <label for="">Nhập mã sách</label><br><input class="input" type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
+    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
     
     <label for="">Nhập tên sách</label><br> {{form.tenSach}}<br>
     
@@ -18,7 +20,7 @@
 
     <label for="">Nhập năm xuất bản</label><br>{{form.namXB}}<br>
 
-    <label for="">Thêm hình ảnh cho sách</label><br>{{form.biaSach}}<br>
+    <label for="">Thêm hình ảnh cho sách</label><br>{{form.biaSach}}<br><br>
 
     
 

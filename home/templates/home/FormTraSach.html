@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_PMS.html' %}
 
 {% block content %} 
 <!--
@@ -34,31 +34,34 @@
     <input class="btn btn-primary" type="submit" name="dangki" value="Đăng Kí Trả Sách">
     <br><br>
     <h1>Danh Sách Phiếu Mượn Sách</h1>
-<table border="1" class="table table-striped table-sm">
+<table border="1" class="analytics_table"  >
     {% if ds%}
-            <td style="color:red;">Mã đọc giả</td>
-            <td style="color:red;">Mã Sách</td>
-            <td style="color:red;">Ngày mượn</td>
-            <td style="color:red;">Ngày hẹn trả </td>
-            <td style="color:red;">Ngày trả</td>
-            <td style="color:red;">Trạng thái</td>
-
+         <thead>
+             <tr>
+                <th>Mã đọc giả</th>
+                <th>Mã Sách</th>
+                <th>Ngày mượn</th>
+                <th>Ngày hẹn trả </th>
+                <th>Ngày trả</th>
+                <th>Trạng thái</th>
+             </tr>
+        </thead>
         {% for x in ds%}
         <tr>
-            <td style="color:red;">{{x.maDG}} </td>
-            <td style="color:red;">{{x.maSach}}</td>
-            <td style="color:red;" type="datetime" class="date">{{x.ngayMuon|date:"SHORT_DATE_FORMAT"}}</td>
-            <td style="color:red;" type="datetime" class="date">{{x.ngayHenTra|date:"SHORT_DATE_FORMAT"}}</td>
-            <td style="color:red;" type="datetime" class="date">{{x.ngayTra|date:"SHORT_DATE_FORMAT"}}</td>
+            <td>{{x.maDG}} </td>
+            <td>{{x.maSach}}</td>
+            <td type="datetime" class="date">{{x.ngayMuon|date:"SHORT_DATE_FORMAT"}}</td>
+            <td type="datetime" class="date">{{x.ngayHenTra|date:"SHORT_DATE_FORMAT"}}</td>
+            <td type="datetime" class="date">{{x.ngayTra|date:"SHORT_DATE_FORMAT"}}</td>
             {% if x.trangThai %}
-                    <td style="color:red;">Đã hoàn thành</td> 
+                    <td>Đã hoàn thành</td> 
             {% else %}
-                    <td style="color:red;">Chưa hoàn thành</td>
+                    <td>Chưa hoàn thành</td>
             {% endif %}
         </tr>
         {% endfor %}
     {% else %}
-        <h3 style="color:red;">Không có dữ liệu nào</h3> 
+        <h3>Không có dữ liệu nào</h3> 
     {% endif %}
  
 </table>

@@ -15,6 +15,7 @@ class NhapDocGiaForm(forms.ModelForm):
          fields =  '__all__'
          widgets = {
              'ngaySinh' : AdminDateWidget(attrs={'type': 'date'}),
+             
              }
          
 class NhapSachForm(forms.ModelForm):

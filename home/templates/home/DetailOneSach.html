@@ -1,11 +1,13 @@
-{% extends 'home/base.html' %}
-
+{% extends 'home/base_bookManager.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% block content %}
-
+<h1>Thông Tin Sách</h1>
+<br><br>
 <div class="content_main detail_book">
     <div class="big_book">
-        <img src="/home/media/{{ds.biaSach}}"
-            >
+        <img src="/home/media/{{ds.biaSach}}">
     </div>
     <div class="info_detail_big">
         <div class="name_info">
@@ -17,15 +19,15 @@
         <div class="author"><span>Nhà Xuất Bản:</span> <b>{{ds.nhaXB}}</b></div>
         <div class="author"><span>Năm Xuất Bản:</span> <b>{{ds.namXB}}</b></div>
 
-        {% if ds.trangThaiSach  %}
+        {% if ds.trangThaiSach %}
         <div class="author"><span>Trạng Thái:</span> <b>Không thể mượn</b></div>
         {% else %}
-                <div class="author"><span>Trạng Thái:</span> <b>Có thể mượn</b></div>
+        <div class="author"><span>Trạng Thái:</span> <b>Có thể mượn</b></div>
         {% endif %}
-       
+
     </div>
     <div class="box_text_details">
-        <h3 class="t_name3">Giới thiệu</h3>
+
         <p><strong></p>
 
         <p></p>

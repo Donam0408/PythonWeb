@@ -29,10 +29,12 @@
         <div class="container-fluid h-custom">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
+                
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                 class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <h1>Đăng Nhập Tài Khoản Thư Viện </h1>
               <form id="login_form" action="/home/Login/" method="post">
                 {% csrf_token %}
       		
@@ -55,8 +57,8 @@
                 <div class="text-center text-lg-start mt-4 pt-2">
                 <input  class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;" type="submit" name="dangki" value="Đăng Nhập">
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                      class="link-danger">Register</a></p>
+                  <p class="small fw-bold mt-2 pt-1 mb-0">Bạn chưa có tài khoản? <a href="{% url 'registerUser' %}"
+                      class="link-danger">Đăng kí</a></p>
                 </div>
       
               </form>
@@ -93,7 +95,7 @@
 ></script>
 </body>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
                
 <script>
     $("#login_form").submit(function (e) {

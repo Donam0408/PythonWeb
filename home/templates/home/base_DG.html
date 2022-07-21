@@ -3,6 +3,20 @@
 
     <head>
         {% load static %}
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet"
+      />
+      <!-- Google Fonts -->
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet"
+      />
+      <!-- MDB -->
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+        rel="stylesheet"
+      />
         <link type="image/x-icon" href="/static/content/images/favicon.png" rel="Shortcut Icon">
     
         <title>Quản Lý Thư Viện </title>
@@ -14,7 +28,7 @@
         <link rel="stylesheet" href='{%static "/content/themes/base/jquery-ui.css"%}'>
         <script src="/static/content/js/jquery.min.js"  type="text/javascript"></script>
         <script src="/static/content/js/jquery-1.10.2.js" ></script>
-        <script src="/static/content/js/jquery-ui.js" ></script>
+        <script src="/static/content/js/jquery-ui.js" ></script> 
         <script src="/static/content/js/event_m.js" ></script>
         <script src="/static/ckeditor/ckeditor.js" type="text/javascript"></script>
     
@@ -53,8 +67,9 @@
                     </div>
                 
                     <div class="lg_mbook">
-                        <a href="{% url 'registerUser'%}" style="font-size:18px"><i class="icon_dangky"></i>Đăng ký</a>
-                        <a href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+                        
+                        <a   href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+                        <a   href="{% url 'changePassword'%}" style="font-size:18px"><i class="icon_dangky"></i>Đổi Mật Khẩu</a>
 
                     </div>
                 </div>
@@ -64,14 +79,14 @@
                 <div class="wrapper">
                     <div class="wrapper">
                         <ul>
-                            <li class=""><a href="{% url 'mainlib' %}">TRANG CHỦ</a></li>
+                            <li class=""><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
                             <li class="kind-book ">
                                 <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
                                 <div class="all-kind">
     
                                 </div>
                             </li>
-                            <li class="kind-book ">
+                            <li class="active">
                                 <h2><a href="{% url 'ListDocGia' %}" class="">Quản Lý Đọc Giả</a></h2>
                                 <div class="all-kind">
     
@@ -87,7 +102,13 @@
     
                                 </div>
                             </li>
-                          
+                            <li class="kind-book ">
+                                <h2><a href="{% url 'registerUser' %}" class="">Đăng kí tài khoản</a></h2>
+                                <div class="all-kind">
+    
+    
+                                </div>
+                            </li>
     
     
                         </ul>
@@ -106,23 +127,23 @@
                         <div id="slider" class="nivoSlider">
                             <a href="javascript:void(0);" onclick="makeslideshow('282','B')"
                                 title="Thế gia danh m&#244;n">
-                                <img src="https://url.sachtot.vn/res/Avatar/201604271138490001995_slide5_web.jpg"
+                                <img src="https://actvn.edu.vn/News/GetImage/23331"
                                     alt="Thế gia danh m&#244;n"></a>
                             <a href="javascript:void(0);" onclick="makeslideshow('7624','B')"
                                 title="Những năm th&#225;ng y&#234;u lầm">
-                                <img src="https://url.sachtot.vn/res/Avatar/201604271146520001754_slide3_web.jpg"
+                                <img src="https://actvn.edu.vn/News/GetImage/23331"
                                     alt="Những năm th&#225;ng y&#234;u lầm"></a>
                             <a href="javascript:void(0);" onclick="makeslideshow('3579','B')"
                                 title="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;">
-                                <img src="https://url.sachtot.vn/res/Avatar/201510281644040001953_thongthai_web.jpg"
+                                <img src="https://actvn.edu.vn/News/GetImage/23331"
                                     alt="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;"></a>
                             <a href="javascript:void(0);" onclick="makeslideshow('777','B')"
                                 title="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại">
-                                <img src="https://url.sachtot.vn/res/Avatar/201510281643000001805_dungkhi_web.jpg"
+                                <img src="https://actvn.edu.vn/News/GetImage/23331"
                                     alt="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại"></a>
                             <a href="javascript:void(0);" onclick="makeslideshow('2582','B')"
                                 title="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh">
-                                <img src="https://url.sachtot.vn/res/Avatar/201510281640150001078_98thuthuat_web.jpg"
+                                <img src="https://actvn.edu.vn/News/GetImage/23331"
                                     alt="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh"></a>
                         </div>
 
@@ -136,7 +157,7 @@
                             <a href="/">
                                 <img src="/static/content/images/home.png" alt="icon home" class="ico_home" /></a><img
                                 src="/static/content/images/icon_arrow.png" alt="arrow" class="arrow" /><span
-                                class="active">Quản Lý Sách</span>
+                                class="active">Quản Đọc Giả</span>
                         </div>
                     </div>
                     <div class="col_left">
@@ -144,14 +165,14 @@
                             <div class="title_cate">Chức năng </div>
                             <div class="content_cate_list">
                                 <ul>
-                                    <li><a href="{% url 'ListSach'%}" title="Thêm Sách">Danh sách sách</a></li>
-                                    <li><a href="{% url 'saveSach'%}" title="Thêm Sách">Thêm Sách</a></li>
-                                    <li><a href="{% url 'alterSach'%}"
-                                            title="Sửa Sách">Sửa Sách</a></li>
-                                    <li><a href="{% url 'XoaSach'%}"
-                                            title="Xóa Sách">Xóa Sách</a></li>
-                                    <li><a href="{% url 'FindSach'%}"
-                                            title="Tra cứu thông tin sách">Tra cứu thông tin sách</a></li>                                  
+                                    <li><a href="{% url 'ListDocGia'%}" title="Thêm Sách">Danh sách đọc giả</a></li>
+                                    <li><a href="{% url 'saveDG'%}" title="Thêm Sách">Thêm đọc giả</a></li>
+                                    <li><a href="{% url 'alterDG'%}"
+                                            title="Sửa Sách">Sửa thông tin đọc giả</a></li>
+                                    <li><a href="{% url 'xoaDG_index'%}"
+                                            title="Xóa Sách">Xóa đọc giả</a></li>
+                                    <li><a href="{% url 'find_dg'%}"
+                                            title="Tra cứu thông tin sách">Tra cứu thông tin đọc giả</a></li>                                  
                                 </ul>
                             </div>
                         </div>
@@ -162,7 +183,7 @@
                             {% endblock %}
                             
                             {% block javascript %}
-                             {% endblock %}
+                            {% endblock %}
                         </div>
                     </div>
 
@@ -173,70 +194,35 @@
                     <div class="wrapper">
                         <div class="footer_info">
                             <nav class="menu-bottom">
-                                <a href="/">Trang chủ</a>
-                                <a href="/sach-dien-tu">Sách điện tử</a>
-                                <a href="/sach-noi">Sách nói</a>
-
-                                <a href="/gioi-thieu.html">Giới thiệu</a>
-                                <a href="/huong-dan.html">Hướng dẫn</a>
-                                <a href="/dieu-khoan-su-dung.html">Điều khoản sử dụng</a>
-                                <a href="/chinh-sach-bao-mat.html">Chính sách bảo mật</a>
-                                <a href="/lien-he.html">Liên hệ</a>
+                                <a href="">Trang chủ</a>
+                                <a href="">Quản lý sách</a>
+                                <a href="">Quản lý đọc giả</a>
+                                
+                                <a href="">Giới thiệu</a>
+                                <a href="">Hướng dẫn</a>
+                                <a href="">Điều khoản sử dụng</a>
+                                <a href="">Chính sách bảo mật</a>
+                                <a href="">Liên hệ</a>
                             </nav>
-                            <p class="menu-bottom" style="display:none;">
-                                <a href="https://sachtot.vn/">đọc sách trực tuyến</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu">đọc sách điện tử online</a> |
-                                <a href="https://sachtot.vn/">đọc sách online</a> |
-                                <a href="https://sachtot.vn/sach-noi">sách nói online</a> |
-                                <a href="https://sachtot.vn/sach-noi">sách nói miễn phí</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu/sach-thieu-nhi-c-010">ebook sách thiếu nhi</a>
-                                |
-                                <a href="https://sachtot.vn/sach-dien-tu/sach-nuoi-day-con-c-0167">ebook sách nuôi dạy
-                                    con</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu/tho-tan-van-tuy-but-c-0006">ebook thơ hay</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu/kinh-doanh-dau-tu-c-0002">ebook kinh doanh
-                                    hay</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu/cham-soc-suc-khoe-lam-dep-c-0003">sách chăm sóc
-                                    sức khỏe</a> |
-                                <a href="https://sachtot.vn/sach-dien-tu/ngon-tinh-c-0015">ebook ngôn tình hay</a> |
-                                <a href="https://sachtot.vn/sach-noi/thieu-nhi-c-0018">sách nói thiếu nhi</a> |
-                                <a href="https://sachtot.vn/sach-noi/kinh-doanh-lam-giau-c-0016">sách nói kinh doanh</a>
-                                |
-                                <a href="https://sachtot.vn/sach-noi/tieu-thuyet-hoi-ky-c-0019">audio tiểu thuyết
-                                    hay</a> |
-                                <a href="https://sachtot.vn/sach-noi/truyen-c-0189">audio truyện ngắn</a> |
-                                <a href="https://sachtot.vn/truyen-tranh">truyện tranh hay nhất</a>
-
-                            </p>
+                            
                             <div class="ft_info_left">
-                                <img src="/static/content/images/logo.png" alt="logo sachtot.vn">
-                                <p style="margin-top: 20px;"><a href="/">sachtot.vn</a></p>
-                                <p>Copyright © 2014 Lemonmedia</p>
-                                <a class="regbct"
-                                    href="http://online.gov.vnPage/CustomWebsiteDisplay.aspx?DocId=8240">
-                                    <img alt="" title=""
-                                        src="http://online.gov.vn/PublicImages/2015/08/27/11/20150827110756-dathongbao.png"
-                                        width="" style="width: 96px; height: 62px;">
-                                </a>
+                                
+                            
                             </div>
                             <div class="ft_info_right">
                                 <p class="f14 bold">
-                                    CÔNG TY CỔ PHẦN TRUYỀN THÔNG QUẢ CHANH
+                                    Học Viện Kĩ Thuậ Mật Mã
                                 </p>
                                 <p>
-                                    Số 223 Phố Khương Hạ mới, Khương Đình, Thanh Xuân, Hà Nội
+                                    Địa chỉ: 141 Đường Chiến Thắng - Tân Triều - Thanh Trì - Hà nội
                                 </p>
+                
                                 <p>
-                                    DKKD số 0105333831 do SKHDT Hà Nội cấp 27/5/2011
                                 </p>
-
-                                <p>
-                                    Website: lemonmedia.vn - Điện thoại: 04.3.5544860
-                                </p>
-
+                
                             </div>
                             <div class="clear"></div>
-
+                
                         </div>
                     </div>
                 </footer>
@@ -249,7 +235,7 @@
         
         <div id='divLogon'></div>
         <div id='divMsgBox'></div>
-        <a href="#" class="scrollup" style="display: inline;">Scroll</a>
+        
     </div>
 
 
@@ -263,9 +249,8 @@
     <script src='/static/content/js/event_m.js' type="text/javascript"></script>
     <script src='/static/content/js/data_m.js' type="text/javascript"></script>
 
-    <script type="text/javascript">
-
-    </script>
+    <script type="text/javascript"></script>
+    
     <!--Google Analytis-->
     
 </body>

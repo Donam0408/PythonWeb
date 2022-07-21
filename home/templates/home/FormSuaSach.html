@@ -1,11 +1,13 @@
 {% extends 'home/base_bookManager.html' %}
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 {% block content %} 
 <form action="/home/AlterSach/" method="post" id="sach-form">
     {% csrf_token %}
     
     <label for="">Nhập mã sách cần sửa</label><br><input type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
-    <h3>Sửa thông tin sách</h3>
+    <h1>Sửa thông tin sách</h1>
     <label for="">Nhập tên sách</label><br>  <input type="text" name="tenSach" maxlength="100"  id="id_tenSach"><br>
     
     <label for="">Nhập loại sách</label><br><input type="text" name="loaiSach" maxlength="50" id="id_loaiSach"><br>
@@ -16,7 +18,7 @@
 
     <label for="">Nhập năm xuất bản</label><br><input type="number" name="namXB" id="id_namXB"><br>
 
-    <label for="">Trạng thái sách </label><br><select name="trangThaiSach" id="id_trangThaiSach">
+    <label for="">Trạng thái sách </label><br><select style="width: 180px;" name="trangThaiSach" id="id_trangThaiSach">
         <option value="0" selected>Có thể mượn</option>
       
         <option value="1">Không thể mượn</option>
@@ -32,6 +34,7 @@
 
 {% endblock %}
 {% block javascript %}
+
 <script>
 
      $("#sach-form").submit(function (e) {

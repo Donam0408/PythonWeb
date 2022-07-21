@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_DG.html' %}
 
 {% block content %} 
 <form action="/home/DeleteDocGia/" method="post">
@@ -11,14 +11,19 @@
     <br> 
     <br>
     <h1>Xóa Theo Danh Sach Doc Gia</h1>
-<table border="1" class="table table-striped table-sm" >
+<table border="1" class="analytics_table" >
     {% if ds%}
-            <td style="color:black;">Mã Đọc Giả</td>
-            <td style="color:black;">Tên đọc giả </td>
-            <td style="color:black;">Ngày Sinh </td>
-            <td style="color:black;">Giới Tính</td>
-            <td style="color:black;"> Số điện thoại </td>
-            <td style="color:black;">Địa chỉ</td> 
+    <thead>
+        <tr>
+            <th style="color:black;">Mã Đọc Giả</th>
+            <th style="color:black;">Tên đọc giả </th>
+            <th style="color:black;">Ngày Sinh </th>
+            <th style="color:black;">Giới Tính</th>
+            <th style="color:black;"> Số điện thoại </th>
+            <th style="color:black;">Địa chỉ</th> 
+        </tr>
+    </thead>
+    <tbody>       
         {% for x in ds%}
         <tr class="record">
             <td style="color:red;">{{x.maDG}}</td>
@@ -27,16 +32,21 @@
             <td style="color:red;">{{x.gioiTinh}} </td>
             <td style="color:red;"> {{x.SDT}}</td>
             <td style="color:red;">{{x.diaChi}}</td> 
-            <td><a href="/home/delete_DG/{{ x.id }}" class="delete_dg" method="post"><button>Xóa</button></a></td>
+            <td><a href="/home/delete_DG/{{ x.id }}" class="delete_dg" method="post"><button class="btn btn-primary" >Xóa</button></a></td>
             
         </tr>
          {% endfor %}
+    </tbody> 
     {% else %}
         <h3 style="color:red;">Không có dữ liệu nào</h3>
     {% endif %}
+
 </table>
 
 {% endblock %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 {% block javascript %}
 <script>
     $(".delete_dg").on("click", function (e) {

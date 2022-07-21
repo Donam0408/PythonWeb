@@ -3,6 +3,20 @@
 
 <head>
     {% load static %}
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+ 
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+    rel="stylesheet"
+  />
     <link type="image/x-icon" href="/static/content/images/favicon.png" rel="Shortcut Icon">
 
     <title>Quản Lý Thư Viện </title>
@@ -12,9 +26,9 @@
 
 
     <link rel="stylesheet" href='{%static "/content/themes/base/jquery-ui.css"%}'>
-    <script src="/static/content/js/jquery.min.js"  type="text/javascript"></script>
-    <!-- <script src="/static/content/js/jquery-1.10.2.js" ></script> -->
-    <script src="/static/content/js/jquery-ui.js" ></script>
+    <script src="/static/content/js/jquery.min.js"  type="text/javascript"></script> 
+     <script src="/static/content/js/jquery-1.10.2.js" ></script> 
+    <script src="/static/content/js/jquery-ui.js" ></script> 
     <script src="/static/content/js/event_m.js" ></script>
     <script src="/static/ckeditor/ckeditor.js" type="text/javascript"></script>
 
@@ -45,15 +59,18 @@
 
         <header>
             <div class="wrapper" id="divLoginButton">
+            
                 <div class="logo_header">
+                    <h2>KMA Library</h2>
                     <div class="lg_mbf">
-                       
                             <i class="logo_mobifone"></i>
-                       
+                           
                     </div>
+                    
                     <div class="lg_mbook">
-                        <a href="{% url 'registerUser'%}" style="font-size:18px"><i class="icon_dangky"></i>Đăng ký</a>
-                        <a   href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+                        
+                        <a href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+                        <a href="{% url 'changePassword'%}" style="font-size:18px"><i class="icon_dangky"></i>Đổi Mật Khẩu</a>
 
                     </div>
                 </div>
@@ -62,7 +79,7 @@
             <nav class="nav_header">
                 <div class="wrapper">
                     <ul>
-                        <li class=""><a href="{% url 'mainlib' %}">TRANG CHỦ</a></li>
+                        <li class="active"><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
                         <li class="kind-book ">
                             <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
                             <div class="all-kind">
@@ -85,6 +102,13 @@
 
                             </div>
                         </li>
+                        <li class="kind-book ">
+                            <h2><a href="{% url 'registerUser' %}" class="">Đăng kí tài khoản</a></h2>
+                            <div class="all-kind">
+
+
+                            </div>
+                        </li>
                       
 
 
@@ -103,27 +127,11 @@
                 <div id="slide">
                     <div class="slide-banner">
                         <div id="slider" class="nivoSlider">
-                            <a href="javascript:void(0);" onclick="makeslideshow('282','B')"
-                                title="Thế gia danh m&#244;n">
-                                <img src="https://actvn.edu.vn/News/GetImage/23331"
-                                    alt="Thế gia danh m&#244;n"></a>
-                            <a href="javascript:void(0);" onclick="makeslideshow('7624','B')"
-                                title="Những năm th&#225;ng y&#234;u lầm">
-                                <img src="https://actvn.edu.vn/News/GetImage/23331"
-                                    alt="Những năm th&#225;ng y&#234;u lầm"></a>
-                            <a href="javascript:void(0);" onclick="makeslideshow('3579','B')"
-                                title="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;">
-                                <img src="https://actvn.edu.vn/News/GetImage/23331"
-                                    alt="108 B&#237; Quyết Gi&#225;o Dục Con Của Cha Mẹ Th&#244;ng Th&#225;i - Bồi Dưỡng Con Trai Ưu T&#250;"></a>
-                            <a href="javascript:void(0);" onclick="makeslideshow('777','B')"
-                                title="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại">
-                                <img src="https://actvn.edu.vn/News/GetImage/23331"
-                                    alt="Nhặt Dũng Cảm L&#234;n Ta L&#224;m Lại"></a>
-                            <a href="javascript:void(0);" onclick="makeslideshow('2582','B')"
-                                title="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh">
-                                <img src="https://actvn.edu.vn/News/GetImage/23331"
-                                    alt="98 thủ thuật th&#224;nh c&#244;ng trong kinh doanh"></a>
-                        </div>
+                            
+                               
+                                <img src="https://actvn.edu.vn/News/GetImage/23331">
+                                  
+                           
 
                     </div>
                 </div>
@@ -159,6 +167,7 @@
         <script src='/static/content/js/jquery.rating.js' type="text/javascript"></script>
         <script src='/static/content/js/event_m.js' type="text/javascript"></script>
         <script src='/static/content/js/data_m.js' type="text/javascript"></script>
+     
 
 
         <footer>
@@ -166,23 +175,21 @@
             <div class="wrapper">
                 <div class="footer_info">
                     <nav class="menu-bottom">
-                        <a href="/">Trang chủ</a>
-                        <a href="/sach-dien-tu">Quản lý sách</a>
-                        <a href="/sach-noi">Quản lý đọc giả</a>
-                        
-                        <a href="/gioi-thieu.html">Giới thiệu</a>
-                        <a href="/huong-dan.html">Hướng dẫn</a>
-                        <a href="/dieu-khoan-su-dung.html">Điều khoản sử dụng</a>
-                        <a href="/chinh-sach-bao-mat.html">Chính sách bảo mật</a>
-                        <a href="/lien-he.html">Liên hệ</a>
+                        <a href="">Trang chủ</a>
+                                <a href="">Quản lý sách</a>
+                                <a href="">Quản lý đọc giả</a>
+                                
+                                <a href="">Giới thiệu</a>
+                                <a href="">Hướng dẫn</a>
+                                <a href="">Điều khoản sử dụng</a>
+                                <a href="">Chính sách bảo mật</a>
+                                <a href="">Liên hệ</a>
                     </nav>
                     
                     <div class="ft_info_left">
                         
                     
-                        <a class="regbct" href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=8240">
-                            <img alt="" title="" src="http://online.gov.vn/PublicImages/2015/08/27/11/20150827110756-dathongbao.png" width="" style="width: 96px; height: 62px;">
-                        </a>
+                        
                     </div>
                     <div class="ft_info_right">
                         <p class="f14 bold">

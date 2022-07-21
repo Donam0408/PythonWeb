@@ -1,29 +1,30 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_DG.html' %}
 
 {% block content %} 
 <form id="DG-form" action="/home/FindDocGia/" method="post">
     {% csrf_token %}
     
     
-    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br><br>
 
 
-    <input type="submit" name="Tìm" value="Tìm">
+    <input class="btn btn-primary"  type="submit" name="Tìm" value="Tìm">
 </form>
 <br><br>
 <h1>Đọc giả cần tìm</h1>
 <ul>
     <div class="container-fluid">
-        <table border="1" class="table table-striped table-sm" id="dg-table">
+        <table border="2" class="analytics_table" id="dg-table">
             
+           
             <thead>
                 <tr>
-                    <td style="color:red;">Mã Đọc Giả</td>
-                    <td style="color:red;">Tên đọc giả </td>
-                    <td style="color:red;">Ngày Sinh </td>
-                    <td style="color:red;">Giới Tính</td>
-                    <td style="color:red;"> Số điện thoại </td>
-                    <td style="color:red;">Địa chỉ</td> 
+                    <th>Mã Đọc Giả</th>
+                    <th>Tên đọc giả </th>
+                    <th>Ngày Sinh </th>
+                    <th>Giới Tính</th>
+                    <th> Số điện thoại </th>
+                    <th>Địa chỉ</th> 
                 </tr>
             </thead>
             <tbody>

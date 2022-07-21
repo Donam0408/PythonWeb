@@ -79,7 +79,7 @@
                     <div class="wrapper">
                         <ul>
                             <li class=""><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
-                            <li class="active">
+                            <li class="kind-book ">
                                 <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
                                 <div class="all-kind">
     
@@ -92,7 +92,7 @@
     
                                 </div>
                             </li>
-                            <li class="kind-book ">
+                            <li class="active">
                                 <h2><a href="{% url 'ListPMS' %}" class="">Quản Lý Mượn Trả Sách</a></h2>
                                 <div class="all-kind">
                                     <ul class="column-kind">
@@ -156,7 +156,7 @@
                             <a href="/">
                                 <img src="/static/content/images/home.png" alt="icon home" class="ico_home" /></a><img
                                 src="/static/content/images/icon_arrow.png" alt="arrow" class="arrow" /><span
-                                class="active">Quản Lý Sách</span>
+                                class="active">Quản Lý Mượn Trả Sách</span>
                         </div>
                     </div>
                     <div class="col_left">
@@ -164,14 +164,14 @@
                             <div class="title_cate">Chức năng </div>
                             <div class="content_cate_list">
                                 <ul>
-                                    <li><a href="{% url 'ListSach'%}" title="Thêm Sách">Danh sách sách</a></li>
-                                    <li><a href="{% url 'saveSach'%}" title="Thêm Sách">Thêm Sách</a></li>
-                                    <li><a href="{% url 'alterSach'%}"
-                                            title="Sửa Sách">Sửa Sách</a></li>
-                                    <li><a href="{% url 'XoaSach'%}"
-                                            title="Xóa Sách">Xóa Sách</a></li>
-                                    <li><a href="{% url 'FindSach'%}"
-                                            title="Tra cứu thông tin sách">Tra cứu thông tin sách</a></li>                                  
+                                    <li><a href="{% url 'ListPMS'%}" title="Danh sách phiếu mượn">Danh sách phiếu mượn</a></li>
+                                    <li><a href="{% url 'AddPhieuMuonSach'%}" title="Đăng kí mượn">Đăng kí mượn sách</a></li>
+                                    <li><a href="{% url 'traSach'%}"
+                                            title="Đăng kí trả">Đăng kí trả sách</a></li>
+                                    <li><a href=""
+                                            title="">Xóa phiếu mượn sách</a></li>
+                                    <li><a href=""
+                                            title="Tra cứu thông tin sách">Tra cứu thông tin phiếu mượn</a></li>                                  
                                 </ul>
                             </div>
                         </div>
