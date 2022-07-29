@@ -1,0 +1,58 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="content_main">
+
+    <div class="left_content">
+        <div class="box_cate">
+            <br>
+            <div class="title_box"><i class="icon_book" ></i><span>Kết Quả Tìm Kiếm</span></div>
+            <div class="content_box">
+                <div class="list_book">
+                    {% if sach%}
+                    <ul>
+                        {% for x in sach%}
+                        <li>
+                
+                            <div class="thumb_list">
+                                <img src="/home/media/{{x.biaSach}}"
+                                    alt="{{x.tenSach}}">
+                                <span class="hover_book capition simple-caption">
+                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
+                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                </span>
+                
+                            </div>
+                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                                       
+                        </li>
+                        {% endfor %}             
+                    </ul>
+                    {% else %}
+                    <h3 style="color:red;">Không Tìm Thấy Sách Trong Thư Viện</h3>
+                {% endif %}
+                
+                
+                        
+    
+            </div>
+
+                
+
+            
+        </div>
+        
+        
+    </div>
+    
+
+
+
+
+
+
+
+
+</div>
+<div style="clear: both;"></div>
+{% endblock %}
+

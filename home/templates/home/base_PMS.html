@@ -19,7 +19,7 @@
       />
         <link type="image/x-icon" href="/static/content/images/favicon.png" rel="Shortcut Icon">
     
-        <title>Quản Lý Thư Viện </title>
+        <title>Quản Lý Thư Viện KMA </title>
     
     
         <link rel="alternate" media="handheld" href="https://sachtot.vn/" />
@@ -58,18 +58,37 @@
 
         <header>
             <div class="wrapper" id="divLoginButton">
+            
                 <div class="logo_header">
+                    <h2>KMA Library</h2>
                     <div class="lg_mbf">
-                        <a href="/" title="Sách hay đọc ngay tay">
-                            <h1>S&#225;ch điện tử</h1>
                             <i class="logo_mobifone"></i>
-                        </a>
+                           
                     </div>
-                
+                    <div class="search_header"> 
+                        <form method="post" action="{% url 'FindSachByName' %}" id="frmSearch" name="frmSearch">
+                            {% csrf_token %}
+                            <input type="text" name="bookname" id="id_find" placeholder="Tìm kiếm trong trong thư viện" />
+                            <button> <i class="fa fa-search"></i></button>
+                        </form>
+                        <!-- <div id="divBoxSearchData" class="sbox-ajax" style="display: none;">
+                            <div style="float: left; width: 489px; max-height: 460px;">
+                                <div class="boxScrollDiv" style="position: relative; width: auto; max-height: 460px;">
+                                    <div id="idScrllLoadData" style="width: auto; max-height: 460px;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+            
+                    </div> 
                     <div class="lg_mbook">
-                        <a   href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
-                        <a   href="{% url 'changePassword'%}" style="font-size:18px"><i class="icon_dangky"></i>Đổi Mật Khẩu</a>
-
+                        {% if user.is_authenticated %}
+                        <a class=".icon_dangky2" style="font-size:18px">Wellcome,{{ user.username }}</a>
+                        {% else %}
+                            
+                        {% endif %}
+                        <a href="{% url 'logoutUser'%}" style="font-size:18px"><i class="icon_dangnhap"></i>Đăng xuất</a>
+                        <a href="{% url 'changePassword'%}" style="font-size:18px"><i class="icon_dangky"></i>Đổi Mật Khẩu</a>
+                        
                     </div>
                 </div>
             </div>
@@ -153,8 +172,8 @@
 
                     <div class="breadcum">
                         <div class="p5">
-                            <a href="/">
-                                <img src="/static/content/images/home.png" alt="icon home" class="ico_home" /></a><img
+                            
+                                <img src="/static/content/images/home.png" alt="icon home" class="ico_home" /><img
                                 src="/static/content/images/icon_arrow.png" alt="arrow" class="arrow" /><span
                                 class="active">Quản Lý Mượn Trả Sách</span>
                         </div>
@@ -166,12 +185,10 @@
                                 <ul>
                                     <li><a href="{% url 'ListPMS'%}" title="Danh sách phiếu mượn">Danh sách phiếu mượn</a></li>
                                     <li><a href="{% url 'AddPhieuMuonSach'%}" title="Đăng kí mượn">Đăng kí mượn sách</a></li>
-                                    <li><a href="{% url 'traSach'%}"
-                                            title="Đăng kí trả">Đăng kí trả sách</a></li>
-                                    <li><a href=""
-                                            title="">Xóa phiếu mượn sách</a></li>
-                                    <li><a href=""
-                                            title="Tra cứu thông tin sách">Tra cứu thông tin phiếu mượn</a></li>                                  
+                                    <li><a href="{% url 'traSach'%}" title="Đăng kí trả">Đăng kí trả sách</a></li>
+                                    <li><a href="" title="">Xóa phiếu mượn sách</a></li>
+                                    <li><a href="" title="Tra cứu thông tin sách">Tra cứu phiếu mượn </a></li>  
+                                    <li><a href="{% url 'ListPMS2'%}" title="Lịch sử mượn sách">Lịch sử mượn sách</a></li>                                         
                                 </ul>
                             </div>
                         </div>
@@ -192,15 +209,12 @@
                     <div class="wrapper">
                         <div class="footer_info">
                             <nav class="menu-bottom">
-                                <a href="">Trang chủ</a>
-                                <a href="">Quản lý sách</a>
-                                <a href="">Quản lý đọc giả</a>
-                                
-                                <a href="">Giới thiệu</a>
-                                <a href="">Hướng dẫn</a>
-                                <a href="">Điều khoản sử dụng</a>
-                                <a href="">Chính sách bảo mật</a>
-                                <a href="">Liên hệ</a>
+                                <a href="{% url 'mainlib' %}">Trang chủ</a>
+                                        <a href="{% url 'ListSach' %}">Quản lý sách</a>
+                                        <a href="{% url 'ListDocGia' %}">Quản lý đọc giả</a>
+                                        <a href="{% url 'AddPhieuMuonSach' %}">Mượn sách</a>
+                                        <a href="{% url 'traSach' %}">Trả Sách</a>
+                                        <a href="https://actvn.edu.vn/">Liên hệ</a>
                             </nav>
                             
                             <div class="ft_info_left">

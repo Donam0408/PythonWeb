@@ -18,7 +18,7 @@
     }
     </script>
 -->
-
+<h2>Đăng Kí Trả Sách</h2>
 
 <form id="ts_form" action="/home/TraSach/" method="post">
     {% csrf_token %}
@@ -90,7 +90,12 @@ $("#ts_form").submit(function (e) {
                 if(response.mess == 1){
                     alert("Ngày trả bạn nhập không hợp lệ");
                 }
-                else{
+                else if(response.mess == 2){
+                    alert("Trả sách muộn!!");
+                    alert("Đăng kí trả sách thành công");
+                    $("#ts_form").trigger('reset');   
+                }
+                else {
                     alert("Đăng kí trả sách thành công");
                     $("#ts_form").trigger('reset');   
                 }

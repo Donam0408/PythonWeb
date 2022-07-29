@@ -104,7 +104,7 @@ a
     float: left;
     margin-top: 15px;
     margin-bottom: 5px;
-    width: 100%;
+    width: 105%;
 }
 
 i.logo_mobifone
@@ -112,8 +112,8 @@ i.logo_mobifone
     background: url(../images/Logo-Hoc-Vien-Ky-Thuat-Mat-Ma-ACTVN-1.png) no-repeat left center;
     display: block;
     background-size: contain;
-    height: 100px;
-    width: 400px;
+    height: 75px;
+    width: 170px;
 }
 
 i.logo_mbook
@@ -134,7 +134,7 @@ h1 i.logo_mbook, h2 i.logo_mbook, h3 i.logo_mbook
 .lg_mbook
 {
     float: right;
-    margin-top: 7px;
+    margin-top: 50px;
 }
 
 .lg_mbf
@@ -165,11 +165,13 @@ header
         background-color: #fff;
         border: 1px solid #d9d9d9;
         border-radius: 4px;
-        box-shadow: 1px 2px 1px rgba(0, 1, 1, 0.05) inset;
-        height: 20px;
-        padding: 5px;
-        width: 340px;
+        box-shadow: 1px 2px 1px rgb(0 1 1 / 5%) inset;
+        height: 35px;
+        padding: 10px;
+        width: 400px;
+        margin-top: 15px;
     }
+    
 
     .search_header button
     {
@@ -186,6 +188,7 @@ header
             color: #979dab;
             display: block;
             font-size: 18px;
+            margin-top: 15px;
         }
 
     /*update search*/
@@ -307,7 +310,13 @@ header
     padding-right: 20px;
     width: 15px;
 }
-
+.icon_dangky2
+{
+    background: url("../images/") no-repeat left center;
+    height: 15px;
+    padding-right: 20px;
+    width: 15px;
+}
 .icon_dangnhap
 {
     background: url("../images/icon_dangnhap.png") no-repeat left center;

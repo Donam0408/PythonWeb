@@ -97,9 +97,7 @@
             <nav class="nav_header">
                 <div class="wrapper">
                     <ul>
-                        <li class="active"><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
-
-                        {% if user.is_superuser %}
+                        <li class=""><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
                         <li class="kind-book ">
                             <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
                             <div class="all-kind">
@@ -109,6 +107,8 @@
                         <li class="kind-book ">
                             <h2><a href="{% url 'ListDocGia' %}" class="">Quản Lý Đọc Giả</a></h2>
                             <div class="all-kind">
+
+
                             </div>
                         </li>
                         <li class="kind-book ">
@@ -120,21 +120,11 @@
 
                             </div>
                         </li>
-                        {% else %}
-                        <li class="kind-book">
-                            <h2><a href="{% url 'ListPMS_DG' %}" class=""> Mượn Trả Sách</a></h2>
-                            <div class="all-kind">
-                                <ul class="column-kind">
-
-                                </ul>
-
-                            </div>
-                        </li>
-                        {% endif %}
-                        
                         <li class="kind-book ">
                             <h2><a href="{% url 'registerUser' %}" class="">Đăng kí tài khoản</a></h2>
                             <div class="all-kind">
+
+
                             </div>
                         </li>
                       

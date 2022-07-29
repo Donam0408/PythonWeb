@@ -2,7 +2,7 @@ from ast import mod
 from random import choices
 from django.db import models
 from multiselectfield import MultiSelectField
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class DocGia(models.Model):
@@ -44,4 +44,5 @@ class MuonTraSach(models.Model):
     ngayHenTra = models.DateField()
     ngayTra = models.DateField(blank= True,null=True)
     trangThai = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
 

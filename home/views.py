@@ -2,8 +2,7 @@
 from asyncio.windows_events import NULL
 from collections import UserList
 from datetime import date, datetime
-from email.mime import image
-from operator import truediv
+
 
 from pickle import FALSE, TRUE
 from urllib import response
@@ -14,6 +13,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.urls import reverse, reverse_lazy
+from requests import request
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -22,7 +22,7 @@ from home.models import DocGia, Sach, TaiKhoan, MuonTraSach
 from home.serializers import DocGiaSerializers,MuonTraSachSerializers
 from home.form import MuonTraSachForm, NhapDocGiaForm,NhapSachForm,RegisterForm,LoginForm,PasswordChangingForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 from rest_framework.decorators import api_view, renderer_classes
 from django.views.decorators.csrf import csrf_exempt
@@ -32,6 +32,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import authenticate,login,logout,load_backend
+
 #
 from django.views import View
 import pymongo
@@ -44,7 +45,8 @@ docgia = pythonweb['home_docgia']
 import logging
 logger = logging.getLogger(__name__)
 
-        
+from home.decorator import admin_only, role_required,admin_only2
+from django.utils.decorators import method_decorator       
 
 
 
@@ -59,17 +61,19 @@ logger = logging.getLogger(__name__)
 # Doc Gia API-------------------------------------------------------------------------------------------------------------------------------
 # Hiển thị danh sách đọc giả
 @login_required(login_url = 'loginUser')
+@admin_only
 def ListDocGia(request):   
         if request.method == 'GET':
          docgia = DocGia.objects.all().values()
         return render(request, "home/DetailDocGia.html", {'ds' : docgia})
 # Thêm đọc giả
-class ThemDocGia(LoginRequiredMixin,View):
+
+class ThemDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
+         
  def get(self, request):
         form = NhapDocGiaForm()
         return render(request, "home/FormAddDocGia.html",{'form':form})
-
  def post(self, request):
   if request.is_ajax and request.method == "POST":
         docgia_data =  NhapDocGiaForm(request.POST)
@@ -77,7 +81,8 @@ class ThemDocGia(LoginRequiredMixin,View):
                 docgia_data.save()
                 return JsonResponse({"valid":False}, status=200)    
         return JsonResponse({"error": docgia_data.errors}, status=400)
-
+ def test_func(self):
+        return self.request.user.is_superuser
 def checkNickName(request):
     # request should be ajax and method should be GET.
     if request.is_ajax and request.method == "GET":
@@ -130,7 +135,7 @@ if request.method == "POST":
         orders.status = st
  '''
 # Tìm đọc giả
-class TimDocGia(LoginRequiredMixin,View):
+class TimDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request): 
         form = NhapDocGiaForm()
@@ -145,11 +150,13 @@ class TimDocGia(LoginRequiredMixin,View):
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"valid":True,"instance": ser_instance}, status=200)    
         else:
-         return JsonResponse({"valid":False}, status = 200)  
+         return JsonResponse({"valid":False}, status = 200)
+ def test_func(self):
+        return self.request.user.is_superuser  
  
 
 # Xóa đọc giả
-class XoaDocGia(LoginRequiredMixin,View):
+class XoaDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request): 
         form = NhapDocGiaForm()
@@ -166,8 +173,11 @@ class XoaDocGia(LoginRequiredMixin,View):
         if FindDGbyName:
                FindDGbyName.delete()
                return HttpResponseRedirect(reverse('xoaDG_index')) 
+ def test_func(self):
+        return self.request.user.is_superuser  
 # Xóa đọc giả dùng danh sách
 @login_required(login_url = 'loginUser')
+@admin_only
 def delete_docgia(request,id): 
  if request.is_ajax and request.method == "GET":
         docgia_data = DocGia.objects.get(id=id)        
@@ -175,7 +185,7 @@ def delete_docgia(request,id):
         return JsonResponse({"message":'success'}, status=200)
  return JsonResponse({"message":'Wrong route'}, status=200)
 # Sửa thông tin đọc giả
-class SuaDocGia(LoginRequiredMixin,View):
+class SuaDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request):
         form = NhapDocGiaForm()
@@ -207,10 +217,13 @@ class SuaDocGia(LoginRequiredMixin,View):
                 return JsonResponse({"valid":True}, status=200)  
         else:
                 return JsonResponse({"valid":False}, status = 200)  
+ def test_func(self):
+        return self.request.user.is_superuser 
                 
 #Sách API----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #check Sach:
+
 def checkSach(request):
     # request should be ajax and method should be GET.
     if request.is_ajax and request.method == "GET":
@@ -240,12 +253,13 @@ def checkSach2(request):
     return JsonResponse({}, status = 400)     
 # Danh sách sách:
 @login_required(login_url = 'loginUser')
+@admin_only
 def ListSach(request):
         if request.method == 'GET':
                 sach = Sach.objects.all().values()
                 return render(request, "home/DetailSach.html", {'ds' : sach})
 # Thêm Sách
-class AddSach(LoginRequiredMixin,View):
+class AddSach(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request):
          form = NhapSachForm()
@@ -259,9 +273,10 @@ class AddSach(LoginRequiredMixin,View):
                 return JsonResponse({"valid":False}, status=200) 
          else:
                 return JsonResponse({"error": sach_data.errors}, status=400)  
-            
+ def test_func(self):
+        return self.request.user.is_superuser            
 # Tìm Sách
-class FindSach(LoginRequiredMixin,View):
+class FindSach(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self,request):
          form = NhapSachForm()
@@ -276,9 +291,11 @@ class FindSach(LoginRequiredMixin,View):
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"valid":True,"instance": ser_instance}, status=200)    
         else:
-         return JsonResponse({"valid":False}, status = 200)  
+         return JsonResponse({"valid":False}, status = 200) 
+ def test_func(self):
+        return self.request.user.is_superuser 
 #Sửa thông tin sách  
-class SuaSach(LoginRequiredMixin,View):
+class SuaSach(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request): 
         form = NhapSachForm()
@@ -323,8 +340,10 @@ class SuaSach(LoginRequiredMixin,View):
                 return JsonResponse({"valid":True}, status=200)  
         else:
                 return JsonResponse({"valid":False}, status = 200) 
+ def test_func(self):
+        return self.request.user.is_superuser 
 #Xóa sách theo mã sách
-class XoaSach(LoginRequiredMixin,View):
+class XoaSach(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request): 
         form = NhapSachForm()
@@ -338,9 +357,12 @@ class XoaSach(LoginRequiredMixin,View):
                 return HttpResponse("Không tìm thấy sách")
         if FindSach_data:
                FindSach_data.delete()
-               return HttpResponseRedirect(reverse('XoaSach'))         
+               return HttpResponseRedirect(reverse('XoaSach'))   
+ def test_func(self):
+        return self.request.user.is_superuser       
 # Xóa Sách theo danh sách
 @login_required(login_url = 'loginUser')
+@admin_only
 def delete_sach(request,id):
  if request.is_ajax and request.method == "GET":
         sach = Sach.objects.get(id=id)        
@@ -351,10 +373,17 @@ def delete_sach(request,id):
 #--------------------------------------------------------------------------------------------------------------------------------------------------- 
 # Hiển thị phiếu mượn sách
 @login_required(login_url = 'loginUser')
+@admin_only
 def ListPMS(request):
-        pms = MuonTraSach.objects.all()
-
+        pms =  MuonTraSach.objects.filter(trangThai= False)
         return render(request, "home/DetailPMS.html",{'ds':pms})  
+@login_required(login_url = 'loginUser')
+@admin_only
+def ListPMS2(request):
+        pms =  MuonTraSach.objects.filter(trangThai= True)
+        return render(request, "home/DetailPMS2.html",{'ds':pms}) 
+
+ 
 #Check PMS
 def checkPMS(request):
     # request should be ajax and method should be GET.
@@ -411,12 +440,26 @@ class TraSach(LoginRequiredMixin,View):
    if MuonTraSach.objects.filter(maSach = sach_id, maDG = docgia_id).exists():       
                 pms = MuonTraSach.objects.get(maDG = docgia_id ,maSach = sach_id, trangThai = False)
                 format = '%Y-%m-%d'
-                date_time_python = datetime.strptime(ngayTra, format)
-                ngayHenTra = pms.ngayMuon
+                ngayTra1 = datetime.strptime(ngayTra, format)
+                ngayMuon = pms.ngayMuon
+                ngayMuon_str =  date.strftime(ngayMuon,format)
+                ngayMuon_date = datetime.strptime(ngayMuon_str, format)
+                
+                ngayHenTra = pms.ngayHenTra
                 ngayHenTra_str =  date.strftime(ngayHenTra,format)
                 ngayHenTra_date = datetime.strptime(ngayHenTra_str, format)
-                if date_time_python < ngayHenTra_date: 
-                    return JsonResponse({"valid":True, "mess": 1}, status=200)    
+                
+                if ngayTra1 < ngayMuon_date: 
+                    return JsonResponse({"valid":True, "mess": 1}, status=200)  
+                if ngayTra1 > ngayHenTra_date:
+                        sach = Sach.objects.get(maSach = sach_id)
+                        pms.ngayTra = ngayTra
+                        pms.trangThai = True
+                        pms.save()
+                        sach.trangThaiSach = False
+                        sach.save()   
+                        return JsonResponse({"valid":True, "mess": 2}, status=200)    
+
                 sach = Sach.objects.get(maSach = sach_id)
                 pms.ngayTra = ngayTra
                 pms.trangThai = True
@@ -441,7 +484,7 @@ def mainlib(request):
         if request.method == 'GET':
                 #ds = []
                 
-                sachdc = Sach.objects.filter(loaiSach = 'Đại Cương', trangThaiSach = False)
+                sachdc = Sach.objects.filter(loaiSach = "Đại Cương", trangThaiSach = False)
                 sachattt = Sach.objects.filter(loaiSach = 'ATTT', trangThaiSach = False)
                 sachcntt = Sach.objects.filter(loaiSach = 'CNTT', trangThaiSach = False)
                 sachtk= Sach.objects.filter(loaiSach = 'Tham Khảo', trangThaiSach = False)
@@ -450,7 +493,7 @@ def mainlib(request):
                 # for x in pms:
                 #         sach_data = Sach.objects.get(maSach = x.maSach)
                 #         ds.append(sach_data)
-                return render(request, "home/TrangChu.html", {'dc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk})
+                return render(request, "home/TrangChu.html", {'sachdcdc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk})
 '''def mainlib(request):
         if request.method == 'GET':
                 sach = Sach.objects.filter(trangThaiSach = True)
@@ -466,6 +509,19 @@ def mainlib(request):
         docgia.SDT = request.POST.get('SDT')
         docgia.diaChi = request.POST.get('diaChi')
 '''
+def FindSachByName(request):
+        if request.method == 'POST':
+                bookname = request.POST.get('bookname')
+                sach = []
+                try:
+                        sach = Sach.objects.filter(tenSach__icontains = bookname)
+                        return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
+                except:
+                        return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
+                
+
+                
+                   
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Đăng kí tk user
 class registerUser(View):

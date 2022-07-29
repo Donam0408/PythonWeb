@@ -1,15 +1,7 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base_blank.html' %}
 
 {% block content %} 
-<h1>Danh Sach {{sl}} Doc Gia</h1>
-<ul>
-    {% if ds%}
-        {% for x in ds%}
-             <li style="color:red;"> {{x.maDG}}  </li>
-         {% endfor %}
-    {% else %}
-        <h3 style="color:red;">Không có dữ liệu nào</h3>
-    {% endif %}
-</ul>  
+<h2>Bạn không có quyền truy cập vào mục này </h2>
+<h2>Hãy chuyển tài khoản được cấp quyền để sử dụng các chức năng này!!! </h2>
 
  {% endblock %}

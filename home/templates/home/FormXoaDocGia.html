@@ -4,13 +4,13 @@
 <form action="/home/DeleteDocGia/" method="post">
     {% csrf_token %}
     
-    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+    <h3><label for="">Nhập mã đọc giả</label></h3>{{form.maDG}}<br>
 
-    <input type="submit" name="Xóa" id="xoa_dg" value="Xóa đọc giả">
+    <input  class="btn btn-primary" type="submit" name="Xóa" id="xoa_dg" value="Xóa đọc giả">
 </form>
     <br> 
     <br>
-    <h1>Xóa Theo Danh Sach Doc Gia</h1>
+    <h1>Xóa Theo Danh Sách Đọc Giả</h1>
 <table border="1" class="analytics_table" >
     {% if ds%}
     <thead>
@@ -26,12 +26,12 @@
     <tbody>       
         {% for x in ds%}
         <tr class="record">
-            <td style="color:red;">{{x.maDG}}</td>
-            <td style="color:red;">{{x.tenDG}} </td>
-            <td style="color:red;"> {{x.ngaySinh| date:"d-m-Y"}}</td>
-            <td style="color:red;">{{x.gioiTinh}} </td>
-            <td style="color:red;"> {{x.SDT}}</td>
-            <td style="color:red;">{{x.diaChi}}</td> 
+            <td >{{x.maDG}}</td>
+            <td >{{x.tenDG}} </td>
+            <td > {{x.ngaySinh| date:"d-m-Y"}}</td>
+            <td >{{x.gioiTinh}} </td>
+            <td > {{x.SDT}}</td>
+            <td >{{x.diaChi}}</td> 
             <td><a href="/home/delete_DG/{{ x.id }}" class="delete_dg" method="post"><button class="btn btn-primary" >Xóa</button></a></td>
             
         </tr>
