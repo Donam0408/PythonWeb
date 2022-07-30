@@ -1,4 +1,4 @@
-{% extends 'home/base_PMS.html' %}
+{% extends 'home/base_PMS2.html' %}
 
 {% block content %} 
 <!--
@@ -44,7 +44,7 @@ $("#ts_form").submit(function (e) {
     e.preventDefault(); 
     $.ajax({
         type: 'POST',
-        url: "{% url 'traSach' %}",
+        url: "{% url 'traSach_DG' %}",
         data: {
             "maDG": $("#id_maDG").val(),
             "maSach":$("#id_maSach").val(),

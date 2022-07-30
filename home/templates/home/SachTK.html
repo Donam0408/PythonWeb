@@ -1,0 +1,51 @@
+{% extends 'home/base_blank.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% block content %}
+<div class="content_main">
+
+    <div class="left_content">
+        <div class="box_cate">
+            <br>
+            <div class="title_box"><i class="icon_book" ></i><span>Sách Công Nghệ Thông Tin</span></div>
+            <div class="content_box">
+                <div class="list_book ">
+                   
+                    {% if thamkhao%}
+                    <ul>
+                        
+                        {% for x in thamkhao%}
+                        <li>
+                
+                            <div class="thumb_list">
+                                <img src="/home/media/{{x.biaSach}}"
+                                    alt="{{x.tenSach}}">
+                                <span class="hover_book capition simple-caption">
+                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
+                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                </span>
+                
+                            </div>
+                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                 
+                        </li>
+                        {% endfor %}
+                    </ul>
+                
+                    {% else %}
+                    <h3 style="color:red;">Không có dữ liệu nào</h3>
+                {% endif %}
+                
+            </div>
+
+           
+
+        </div>
+        
+        
+    </div>
+    
+</div>
+<div style="clear: both;"></div>
+<br>
+{% endblock %}

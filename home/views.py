@@ -253,11 +253,49 @@ def checkSach2(request):
     return JsonResponse({}, status = 400)     
 # Danh sách sách:
 @login_required(login_url = 'loginUser')
+def infor_sach(request,id):
+         sach_data = Sach.objects.get(id = id)
+         return render(request, "home/DetailOneSach.html", {'ds' : sach_data})
+ 
+@login_required(login_url = 'loginUser')
+def SachCNTT(request):
+        if request.method == 'GET':
+                sachcntt = Sach.objects.filter(loaiSach = 'CNTT')
+                return render(request, "home/SachCNTT.html", {'cntt' : sachcntt})
+@login_required(login_url = 'loginUser')
+def SachDC(request):
+        if request.method == 'GET':
+                sachdc = Sach.objects.filter(loaiSach = "Đại Cương")
+                return render(request, "home/SachDC.html", {'dc' : sachdc})
+@login_required(login_url = 'loginUser')
+def SachATTT(request):
+        if request.method == 'GET':
+                sachattt = Sach.objects.filter(loaiSach = 'ATTT')
+                return render(request, "home/SachATTT.html", {'attt' : sachattt})
+@login_required(login_url = 'loginUser')
+def SachTK(request):
+        if request.method == 'GET':
+                sachtk= Sach.objects.filter(loaiSach = 'Tham Khảo')
+                return render(request, "home/SachTK.html", {'thamkhao' : sachtk})
+@login_required(login_url = 'loginUser')
+def SachGT(request):
+        if request.method == 'GET':
+                sachtruyen= Sach.objects.filter(loaiSach = 'Giải Trí')
+                return render(request, "home/SachGT.html", {'giaitri':sachtruyen})
+        
+        
+@login_required(login_url = 'loginUser')
 @admin_only
 def ListSach(request):
         if request.method == 'GET':
-                sach = Sach.objects.all().values()
-                return render(request, "home/DetailSach.html", {'ds' : sach})
+                sachdc = Sach.objects.filter(loaiSach = "Đại Cương")
+                sachattt = Sach.objects.filter(loaiSach = 'ATTT')
+                sachcntt = Sach.objects.filter(loaiSach = 'CNTT')
+                sachtk= Sach.objects.filter(loaiSach = 'Tham Khảo')
+                sachtruyen= Sach.objects.filter(loaiSach = 'Giải Trí')
+                
+                return render(request, "home/DetailSach.html", {'dc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk,'giaitri':sachtruyen})
+                
 # Thêm Sách
 class AddSach(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
@@ -380,9 +418,24 @@ def ListPMS(request):
 @login_required(login_url = 'loginUser')
 @admin_only
 def ListPMS2(request):
-        pms =  MuonTraSach.objects.filter(trangThai= True)
+        pms =  MuonTraSach.objects.all()
         return render(request, "home/DetailPMS2.html",{'ds':pms}) 
-
+@login_required(login_url = 'loginUser')
+def ListPMS_DG(request):
+        pms =  MuonTraSach.objects.filter(trangThai= False)
+        ds = []
+        for x in pms:
+                if x.created_by == request.user:
+                        ds.append(x)
+        return render(request, "home/DetailPMS_DG.html",{'ds':ds}) 
+@login_required(login_url = 'loginUser')
+def ListPMS_DG2(request):
+        pms =  MuonTraSach.objects.all()
+        ds = []
+        for x in pms:
+                if x.created_by == request.user:
+                        ds.append(x)
+        return render(request, "home/DetailPMS_DG2.html",{'ds':ds}) 
  
 #Check PMS
 def checkPMS(request):
@@ -421,6 +474,27 @@ class AddPhieuMuonSach(LoginRequiredMixin,View):
                  return JsonResponse({"valid":False}, status=200) 
                 return JsonResponse({"valid":True}, status=200)    
         return JsonResponse({"error": pms_data.errors}, status=400) 
+class AddPMS_DG(LoginRequiredMixin,View):
+ login_url = 'loginUser'
+ def get(self, request):
+        form = MuonTraSachForm()
+        return render(request, "home/FormAddPMS_DG.html",{'form':form})         
+ def post(self, request):
+  if request.is_ajax and request.method == "POST":
+        maSach = request.POST.get("maSach", None)
+        maDG = request.POST.get("maDG", None)
+        ngayMuon = request.POST.get("ngayMuon", None)
+        ngayHenTra = request.POST.get("ngayHenTra", None)
+        owner = request.user
+        pms = MuonTraSach.objects.create(maDG =maDG,maSach=maSach,ngayMuon=ngayMuon,ngayHenTra=ngayHenTra,trangThai=False,created_by = owner)
+        
+        sach = Sach.objects.get(maSach = maSach)
+        if(ngayHenTra>= ngayMuon):
+                 sach.trangThaiSach = True
+                 sach.save() 
+                 pms.save()
+                 return JsonResponse({"valid":False}, status=200) 
+        return JsonResponse({"valid":True}, status=200)   
 # Trả sách 
 
 class TraSach(LoginRequiredMixin,View):
@@ -471,10 +545,54 @@ class TraSach(LoginRequiredMixin,View):
                 return JsonResponse({"valid":False}, status=200)
   return JsonResponse({"error": "ERROR"}, status=400)
 
+class TraSach_DG(LoginRequiredMixin,View):
+ login_url = 'loginUser'
+ def get(self, request):
+        form = MuonTraSachForm()
+        pms = MuonTraSach.objects.all()
+        #formated_time = pms['ngayMuon']
+        #format_date = formated_time.date()
+        #pms['ngayMuon'] = format_date
+        return render(request, "home/FormTraSach_DG.html",{'form':form, 'ds':pms})
+ def post(self, request):
+  if request.is_ajax and request.method == "POST":
+   docgia_id = request.POST.get("maDG", None)
+   sach_id = request.POST.get("maSach", None)
+   ngayTra = request.POST.get("ngayTra", None)
+   if MuonTraSach.objects.filter(maSach = sach_id, maDG = docgia_id,created_by = self.request.user ).exists():       
+                pms = MuonTraSach.objects.get(maDG = docgia_id ,maSach = sach_id, trangThai = False)
+                format = '%Y-%m-%d'
+                ngayTra1 = datetime.strptime(ngayTra, format)
+                ngayMuon = pms.ngayMuon
+                ngayMuon_str =  date.strftime(ngayMuon,format)
+                ngayMuon_date = datetime.strptime(ngayMuon_str, format)
+                
+                ngayHenTra = pms.ngayHenTra
+                ngayHenTra_str =  date.strftime(ngayHenTra,format)
+                ngayHenTra_date = datetime.strptime(ngayHenTra_str, format)
+                
+                if ngayTra1 < ngayMuon_date: 
+                    return JsonResponse({"valid":True, "mess": 1}, status=200)  
+                if ngayTra1 > ngayHenTra_date:
+                        sach = Sach.objects.get(maSach = sach_id)
+                        pms.ngayTra = ngayTra
+                        pms.trangThai = True
+                        pms.save()
+                        sach.trangThaiSach = False
+                        sach.save()   
+                        return JsonResponse({"valid":True, "mess": 2}, status=200)    
 
-def infor_sach(request,id):
-         sach_data = Sach.objects.get(id = id)
-         return render(request, "home/DetailOneSach.html", {'ds' : sach_data})
+                sach = Sach.objects.get(maSach = sach_id)
+                pms.ngayTra = ngayTra
+                pms.trangThai = True
+                pms.save()
+                sach.trangThaiSach = False
+                sach.save()
+                return JsonResponse({"valid":True}, status=200)
+   else:
+                return JsonResponse({"valid":False}, status=200)
+  return JsonResponse({"error": "ERROR"}, status=400)
+
                        
                 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -488,12 +606,13 @@ def mainlib(request):
                 sachattt = Sach.objects.filter(loaiSach = 'ATTT', trangThaiSach = False)
                 sachcntt = Sach.objects.filter(loaiSach = 'CNTT', trangThaiSach = False)
                 sachtk= Sach.objects.filter(loaiSach = 'Tham Khảo', trangThaiSach = False)
+                sachtruyen= Sach.objects.filter(loaiSach = 'Giải Trí', trangThaiSach = False)
                 
-                pms = MuonTraSach.objects.filter(trangThai = True)
+                #pms = MuonTraSach.objects.filter(trangThai = True)
                 # for x in pms:
                 #         sach_data = Sach.objects.get(maSach = x.maSach)
                 #         ds.append(sach_data)
-                return render(request, "home/TrangChu.html", {'sachdcdc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk})
+                return render(request, "home/TrangChu.html", {'dc' : sachdc,'attt' : sachattt,'cntt' : sachcntt,'thamkhao' : sachtk,'giaitri':sachtruyen})
 '''def mainlib(request):
         if request.method == 'GET':
                 sach = Sach.objects.filter(trangThaiSach = True)
