@@ -2,19 +2,19 @@
 
 {% block content %} 
 <br>
-<h1>Sửa thông tin đọc giả</h1>
+  <button name="maDG" maxlength="100"  id="id_maDG" value="{{data.maDG}}"> 
+<h2>Cập nhật các trường thông tin cần thay đổi</h2>
+<br>
 <form id="DG-form" action="/home/SuaDocGia/" method="post">
     {% csrf_token %}
     
+    <label for="">Nhập tên đọc giả</label><br> <input type="text" name="tenDG" maxlength="100"  id="id_tenDG" value="{{data.tenDG}}"><br>
     
-    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+    <label for="">Nhập ngày sinh đọc giả</label><br><input name="ngaySinh" type="date" class="vDateField" size="10"  id="id_ngaySinh" value="{{data.ngaySinh|date:'Y-m-d'}}"><br>
     
-    <label for="">Nhập tên đọc giả</label><br> <input type="text" name="tenDG" maxlength="100"  id="id_tenDG"><br>
-    
-    <label for="">Nhập ngày sinh đọc giả</label><br><input type="date" name="ngaySinh" class="vDateField" size="10"  id="id_ngaySinh"><br>
-    
-    <label for="">Nhập giới tính đọc giả</label><br><select  style="width: 160px;" name="gioiTinh" id="id_gioiTinh">
-        <option value="Nữ" selected>Nữ</option>
+    <label for="">Nhập giới tính đọc giả</label><br><select  style="width: 160px;" name="gioiTinh" id="id_gioiTinh" value="{{data.gioiTinh}}">
+        <option value="" selected disabled hidden>Chọn giới tính</option>
+        <option value="Nữ" >Nữ</option>
       
         <option value="Nam">Nam</option>
       
@@ -22,9 +22,9 @@
       
       </select><br>
    
-    <label for="">Nhập số điện thoại đọc giả</label><br><input type="text" name="SDT" maxlength="100" id="id_SDT"><br>
+    <label for="">Nhập số điện thoại đọc giả</label><br><input type="text" name="SDT" maxlength="100" id="id_SDT" value="{{data.SDT}}"><br>
     
-    <label for="">Nhập địa chỉ đọc giả</label><br><input type="text" name="diaChi" maxlength="100" id="id_diaChi"><br>
+    <label for="">Nhập địa chỉ đọc giả</label><br><input type="text" name="diaChi" maxlength="100" id="id_diaChi" value="{{data.diaChi}}"><br>
     <br>
     
 
@@ -35,11 +35,11 @@
 {% endblock %}
 {% block javascript %}
 <script>
-
+   
      $("#DG-form").submit(function (e) {
     // preventing from page reload and default actions
     e.preventDefault(); 
-    var maDG = $("#id_maDG").val();
+    maDG = $("#id_maDG").val(),
     $.ajax({
         type: 'POST',
         url: "{% url 'alterDG' %}",
@@ -57,6 +57,7 @@
             }
             else {
                 alert("Sửa thông tin đọc giả thành công");
+                window.location.href= "{% url 'alterDG' %}";
             }
             
         },
@@ -67,27 +68,6 @@
         }
     })
 }) 
-$("#id_maDG").focusout(function (e) {
-    e.preventDefault();
-    // get the nickname
-    var maDG = $(this).val();
-    // GET AJAX request
-    $.ajax({
-        type: 'GET',
-        url: "{% url 'validate_nickname' %}",
-        data: {"maDG": maDG },
-        success: function (response) {
-            // if not valid user, alert the user
-            if(response["valid"]){
-                alert("Mã đọc giả bạn nhập không tồn tại");
-                
-            }
-        },
-        error: function (response) {
-            console.log(response)
-        }
-    })
-})
 
 </script>
 {% endblock %}

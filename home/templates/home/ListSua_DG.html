@@ -1,16 +1,9 @@
 {% extends 'home/base_DG.html' %}
 
 {% block content %} 
-<form action="/home/DeleteDocGia/" method="post">
-    {% csrf_token %}
-    
-    <h3><label for="">Nhập mã đọc giả</label></h3>{{form.maDG}}<br>
-
-    <input  class="btn btn-primary" type="submit" name="Xóa" id="xoa_dg" value="Xóa đọc giả">
-</form>
     <br> 
     <br>
-    <h1>Xóa Theo Danh Sách Đọc Giả</h1>
+    <h1>Sửa Theo Danh Sách Đọc Giả</h1>
 <table border="1" class="analytics_table" >
     {% if ds%}
     <thead>
@@ -33,7 +26,7 @@
             <td >{{x.gioiTinh}} </td>
             <td > {{x.SDT}}</td>
             <td >{{x.diaChi}}</td> 
-            <td><a href="/home/delete_DG/{{ x.id }}" class="delete_dg" method="post"><button class="btn btn-primary">Xóa</button></a></td>
+            <td><a href="/home/Sua_DG/{{ x.id }}" class="suadg" method="post"><button class="btn btn-primary" >Sửa</button></a></td>
             
         </tr>
          {% endfor %}
@@ -42,42 +35,16 @@
         <h3 style="color:red;">Không có dữ liệu nào</h3>
     {% endif %}
 
-</table>
-
+</table><br>
+<br>
+<br>
 {% endblock %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 {% block javascript %}
 <script>
-    $(".delete_dg").on("click", function (e) {
-        e.preventDefault();
-        // get the nickname
-        var $this = $(this);
-        // GET AJAX request
-        if (confirm("Xóa bản ghi?")){
-            $.ajax({
-                url: $this.attr("href"),
-                type : "GET",
-                dataType: "json",
-                success: function(response){
-                    if (response.message == 'success'){
-                        $this.parents('.record').fadeOut("slow",function(){
-                            $this.parents('.record').remove();
-                        });
-                    }
-                    else{
-                        alert(response.message);
-                    }
-                },
-                error: function(response){
-                    console.log("ERROR!!!");
-                },
-            })
-       
-        }
-    })
-
+ 
     $("#id_maDG").focusout(function (e) {
         e.preventDefault();
         // get the nickname
@@ -100,27 +67,6 @@
             }
         })
     })
-    /* $("#xoa_dg").on("click", function (e) {
-        var data = $("#id_maDG").val()
-        e.preventDefault();
-        if (confirm("Xóa bản ghi?")){
-        $.ajax({
-            url: "{% url 'xoaDG_index' %}",
-            type : "POST",
-            data: {"maDG": data , 'CSRFToken': getCSRFTokenValue()},
-            success: function(response){
-                if (response.message == 'success'){
-                   alert("Xóa thành công")
-                }
-                else{
-                    alert(response.message);
-                }
-            },
-            error: function(response){
-                console.log("ERROR!!!");
-            },
-        })
-    }
-    })*/
+    
 </script>
 {% endblock %}

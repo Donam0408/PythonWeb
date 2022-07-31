@@ -39,6 +39,10 @@ urlpatterns = [
     path('TraSach_DG/', views.TraSach_DG.as_view(),name='traSach_DG'),
     path('AddPhieuMuonSach/',views.AddPhieuMuonSach.as_view(),name="AddPhieuMuonSach"),
     path('AddPMS_DG/',views.AddPMS_DG.as_view(),name="AddPMS_DG"),
+    path('delete_PMS/<int:id>',views.delete_PMS, name='delete_PMS'),
+    path('XoaPMS/',views.XoaPMS.as_view(),name="XoaPMS"),
+    path('Sua_DG/<int:id>',views.Sua_DG, name='Sua_DG'),
+    
     
     path('Register/',views.registerUser.as_view(),name= "registerUser"),
     path('get/ajax/validate/user', views.checkUser, name = "validate_user"),

@@ -185,11 +185,14 @@ def delete_docgia(request,id):
         return JsonResponse({"message":'success'}, status=200)
  return JsonResponse({"message":'Wrong route'}, status=200)
 # Sửa thông tin đọc giả
+def Sua_DG(request,id):
+        data = DocGia.objects.get(id=id)
+        return render(request, "home/FormSuaDocGia.html",{'data':data})
 class SuaDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
  login_url = 'loginUser'
  def get(self, request):
-        form = NhapDocGiaForm()
-        return render(request, "home/FormSuaDocGia.html",{'form':form})
+        form = DocGia.objects.all()
+        return render(request, "home/ListSua_DG.html",{'ds':form})
 
  def post(self, request):
        if request.is_ajax and request.method == "POST":
@@ -202,6 +205,7 @@ class SuaDocGia(LoginRequiredMixin,UserPassesTestMixin,View):
         diaChi = request.POST.get("diaChi", None)        
         if DocGia.objects.filter(maDG = maDG).exists():
                 docgia = DocGia.objects.get(maDG = maDG)
+                
                 if tenDG.strip():
                  docgia.tenDG = tenDG
                 if ngaySinh.strip():
@@ -593,7 +597,19 @@ class TraSach_DG(LoginRequiredMixin,View):
                 return JsonResponse({"valid":False}, status=200)
   return JsonResponse({"error": "ERROR"}, status=400)
 
-                       
+def delete_PMS(request,id):
+        if request.is_ajax and request.method == "GET":
+                pms_data = MuonTraSach.objects.get(id=id)        
+                pms_data.delete() 
+                return JsonResponse({"mess":'success'}, status=200)
+        return JsonResponse({"mess":'Wrong route'}, status=200)    
+class XoaPMS(LoginRequiredMixin,UserPassesTestMixin,View):
+ def test_func(self):
+        return self.request.user.is_superuser   
+ def get(self, request):
+        pms =  MuonTraSach.objects.all()
+        return render(request, "home/XoaPMS.html",{'ds':pms})  
+                  
                 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Hiện thị sách có thể mượn lên trang chủ

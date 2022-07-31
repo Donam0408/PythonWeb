@@ -65,7 +65,8 @@ $("#ts_form").submit(function (e) {
                 }
                 else {
                     alert("Đăng kí trả sách thành công");
-                    $("#ts_form").trigger('reset');   
+                    $("#ts_form").trigger('reset');  
+                    window.location.href= "{% url 'ListPMS' %}"; 
                 }
             }
             else{

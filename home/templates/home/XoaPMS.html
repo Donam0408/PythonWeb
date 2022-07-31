@@ -1,0 +1,75 @@
+{% extends 'home/base_PMS.html' %}
+
+{% block content %} 
+<h2>Danh Sách Phiếu Mượn Sách</h2><br>
+<table border="1" class="analytics_table">
+    {% if ds%}
+    <thead>
+        <tr>
+            <th>Mã đọc giả</th>
+            <th>Mã Sách</th>
+            <th>Ngày mượn</th>
+            <th>Ngày hẹn trả </th>
+            <th>Ngày trả</th>
+            <th>Trạng thái</th>
+            <th>Chức năng</th>
+        </tr>
+
+    </thead>
+            
+    <tbody>
+        {% for x in ds%}
+        <tr class="record">
+            <td>{{x.maDG}} </td>
+            <td>{{x.maSach}}</td>
+            <td>{{x.ngayMuon|date:"d-m-Y"}}</td>
+            <td>{{x.ngayHenTra|date:"d-m-Y"}}</td>
+            <td>{{x.ngayTra|date:"d-m-Y"}}</td>
+            {% if x.trangThai %}
+                    <td>Đã hoàn thành</td> 
+            {% else %}
+                    <td>Chưa hoàn thành</td>
+            {% endif %}
+            <td><a href="/home/delete_PMS/{{ x.id }}" class="delete_s" method="post"><button class="btn btn-primary" >Xóa</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% else %}
+        <h3>Không có dữ liệu nào</h3>
+    {% endif %}
+</table>
+        
+ {% endblock %}
+ {% block javascript %}
+<script>
+    $(".delete_s").on("click", function (e) {
+        e.preventDefault();
+        // get the nickname
+        var $this = $(this);
+        // GET AJAX request
+        if (confirm("Xóa bản ghi?")){
+            $.ajax({
+                url: $this.attr("href"),
+                type : "GET",
+                dataType: "json",
+                success: function(response){
+                    if (response.mess == 'success'){
+                        $this.parents('.record').fadeOut("slow",function(){
+                            $this.parents('.record').remove();
+                        });
+                    }
+                    else{
+                        alert(response.mess);
+                    }
+                },
+                error: function(response){
+                    console.log("ERROR!!!");
+                },
+            })
+       
+        }
+    })
+
+   
+</script>
+{% endblock %}
