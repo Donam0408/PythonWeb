@@ -2,9 +2,10 @@
 
 {% block content %} 
 <br>
-  <button name="maDG" maxlength="100"  id="id_maDG" value="{{data.maDG}}"> 
+  
 <h2>Cập nhật các trường thông tin cần thay đổi</h2>
-<br>
+<h3>Mã đọc giả:  <p style="display: inline;" name="maDG" id="id_maDG">{{data.maDG}}</p></h3>
+
 <form id="DG-form" action="/home/SuaDocGia/" method="post">
     {% csrf_token %}
     
@@ -27,8 +28,6 @@
     <label for="">Nhập địa chỉ đọc giả</label><br><input type="text" name="diaChi" maxlength="100" id="id_diaChi" value="{{data.diaChi}}"><br>
     <br>
     
-
-
     <input class="btn btn-primary" type="submit" name="dangki" value="Update">
 </form>
 <br>
@@ -39,7 +38,7 @@
      $("#DG-form").submit(function (e) {
     // preventing from page reload and default actions
     e.preventDefault(); 
-    maDG = $("#id_maDG").val(),
+    maDG = $("#id_maDG").text();
     $.ajax({
         type: 'POST',
         url: "{% url 'alterDG' %}",
