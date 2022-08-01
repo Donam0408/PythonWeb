@@ -18,18 +18,18 @@
     }
     </script>
 -->
-<h2>Đăng Kí Trả Sách</h2>
+<h1>Thông Tin Phiếu Mượn</h1><br>
+<h6>Mã đọc giả:  <p style="display: inline;" name="maDG" id="id_maDG">{{data.maDG}}</p></h6>
+<h6>Mã sách:  <p style="display: inline;" name="maSach" id="id_maSach">{{data.maSach}}</p></h6>
+<h6>Ngày mượn sách:  <p style="display: inline;" name="ngayMuon" id="id_ngayMuon">{{data.ngayMuon|date:"d-m-Y"}}</p></h6>
+<h6>Ngày hẹn trả:  <p style="display: inline;" name="ngayHenTra" id="id_ngayHenTra">{{data.ngayHenTra|date:"d-m-Y"}}</p></h6>
+
 
 <form id="ts_form" action="/home/TraSach/" method="post">
     {% csrf_token %}
     
-    
-    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
-
-    <label for="">Nhập mã sách</label><br> {{form.maSach}}<br>
-
-    <label for="">Nhập ngày trả</label><br>{{form.ngayTra}}
-    
+    <h6><label for="">Nhập ngày trả</label></h6><input type="date" name="ngayTra" class="vDateField" style="font-family: SANS-SERIF;
+    font-size: x-lrge;" id="id_ngayTra">
     <br><br>
     <input class="btn btn-primary" type="submit" name="dangki" value="Đăng Kí Trả Sách">
     <br><br>
@@ -46,8 +46,8 @@ $("#ts_form").submit(function (e) {
         type: 'POST',
         url: "{% url 'traSach' %}",
         data: {
-            "maDG": $("#id_maDG").val(),
-            "maSach":$("#id_maSach").val(),
+            "maDG": $("#id_maDG").text(),
+            "maSach":$("#id_maSach").text(),
             "ngayTra" : $("#id_ngayTra").val(),
              csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val(),
 
@@ -62,11 +62,12 @@ $("#ts_form").submit(function (e) {
                     alert("Trả sách muộn!!");
                     alert("Đăng kí trả sách thành công");
                     $("#ts_form").trigger('reset');   
+                   
                 }
                 else {
                     alert("Đăng kí trả sách thành công");
                     $("#ts_form").trigger('reset');  
-                    window.location.href= "{% url 'ListPMS' %}"; 
+                    
                 }
             }
             else{

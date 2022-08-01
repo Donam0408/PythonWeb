@@ -98,6 +98,9 @@
                     <div class="wrapper">
                         <ul>
                             <li class=""><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
+                            <li class=""><a href="{% url 'SachCNTT' %}">Thể Loại</a></li>
+    
+                            {% if user.is_superuser %}
                             <li class="kind-book ">
                                 <h2><a href="{% url 'ListSach' %}" class="">Quản Lý Sách</a></h2>
                                 <div class="all-kind">
@@ -107,11 +110,9 @@
                             <li class="kind-book ">
                                 <h2><a href="{% url 'ListDocGia' %}" class="">Quản Lý Đọc Giả</a></h2>
                                 <div class="all-kind">
-    
-    
                                 </div>
                             </li>
-                            <li class="active">
+                            <li class="active ">
                                 <h2><a href="{% url 'ListPMS' %}" class="">Quản Lý Mượn Trả Sách</a></h2>
                                 <div class="all-kind">
                                     <ul class="column-kind">
@@ -120,13 +121,24 @@
     
                                 </div>
                             </li>
-                            <li class="kind-book ">
-                                <h2><a href="{% url 'registerUser' %}" class="">Đăng kí tài khoản</a></h2>
+                            {% else %}
+                            <li class="active">
+                                <h2><a href="{% url 'ListPMS_DG' %}" class=""> Mượn Trả Sách</a></h2>
                                 <div class="all-kind">
+                                    <ul class="column-kind">
     
+                                    </ul>
     
                                 </div>
                             </li>
+                            {% endif %}
+                            
+                            <li class="kind-book ">
+                                <h2><a href="{% url 'registerUser' %}" class="">Đăng kí tài khoản</a></h2>
+                                <div class="all-kind">
+                                </div>
+                            </li>
+                          
     
     
                         </ul>
@@ -182,14 +194,23 @@
                         <div class="cate_left">
                             <div class="title_cate">Chức năng </div>
                             <div class="content_cate_list">
+                                {% if user.is_superuser %}
                                 <ul>
                                     <li><a href="{% url 'ListPMS'%}" title="Danh sách phiếu mượn">Danh sách phiếu mượn</a></li>
                                     <li><a href="{% url 'AddPhieuMuonSach'%}" title="Đăng kí mượn">Đăng kí mượn sách</a></li>
-                                    <li><a href="{% url 'traSach'%}" title="Đăng kí trả">Đăng kí trả sách</a></li>
+                                    <li><a href="{% url 'timTraSach'%}" title="Đăng kí trả">Tìm phiếu mượn</a></li>
                                     <li><a href="{% url 'XoaPMS'%}" title="">Xóa phiếu mượn sách</a></li>
                                     
                                     <li><a href="{% url 'ListPMS2'%}" title="Lịch sử mượn sách">Lịch sử mượn sách</a></li>                                         
                                 </ul>
+                                {% else %}
+                                <ul>
+                                    <li><a href="{% url 'ListPMS_DG'%}" title="Danh sách phiếu mượn">Sách đang được mượn</a></li>
+                                    <li><a href="{% url 'AddPMS_DG'%}" title="Đăng kí mượn">Đăng kí mượn sách</a></li>
+                                    <li><a href="{% url 'traSach_DG'%}" title="Đăng kí trả">Đăng kí trả sách</a></li> 
+                                    <li><a href="{% url 'ListPMS_DG2'%}" title="Lịch sử mượn sách">Lịch sử mượn sách</a></li>                                         
+                                </ul>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -210,6 +231,7 @@
                         <div class="footer_info">
                             <nav class="menu-bottom">
                                 <a href="{% url 'mainlib' %}">Trang chủ</a>
+                                <a href="{% url 'SachCNTT' %}">Thể Loại</a>
                                         <a href="{% url 'ListSach' %}">Quản lý sách</a>
                                         <a href="{% url 'ListDocGia' %}">Quản lý đọc giả</a>
                                         <a href="{% url 'AddPhieuMuonSach' %}">Mượn sách</a>

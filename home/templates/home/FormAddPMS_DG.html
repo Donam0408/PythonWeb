@@ -66,8 +66,8 @@ $("#id_maSach").focusout(function (e) {
             // if not valid user, alert the user
             if(!response["valid"]){
                 alert("Mã sách bạn nhập không tồn tại");
-                var maDG = $("#id_maSach");
-                maDG.val("")
+                var maSach = $("#id_maSach");
+                maSach.val("")
             }
             else{
                 if(response.mess == 1){

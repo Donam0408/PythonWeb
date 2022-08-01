@@ -185,6 +185,8 @@ def delete_docgia(request,id):
         return JsonResponse({"message":'success'}, status=200)
  return JsonResponse({"message":'Wrong route'}, status=200)
 # Sửa thông tin đọc giả
+@login_required(login_url = 'loginUser')
+@admin_only
 def Sua_DG(request,id):
         data = DocGia.objects.get(id=id)
         return render(request, "home/FormSuaDocGia.html",{'data':data})
@@ -447,9 +449,8 @@ def checkPMS(request):
     if request.is_ajax and request.method == "GET":
         # get the nick name from the client side.
         maDG = request.GET.get("maDG", None)
-        maSach = request.GET.get("maSach", None)
         # check for the nick name in the database.
-        if MuonTraSach.objects.filter(maSach = maSach, maDG = maDG).exists():
+        if MuonTraSach.objects.filter(maDG = maDG,trangThai = False).exists():
             # if nick_name found return not valid new friend
             return JsonResponse({"valid":False}, status = 200)
         else:
@@ -500,15 +501,42 @@ class AddPMS_DG(LoginRequiredMixin,View):
                  return JsonResponse({"valid":False}, status=200) 
         return JsonResponse({"valid":True}, status=200)   
 # Trả sách 
+def TraSach_id(request,id):
+        form = MuonTraSachForm()
+        pms = MuonTraSach.objects.get(id=id)
+        return render(request, "home/FormTraSach.html",{'form':form,'data':pms})
 
+
+class timTraSach(LoginRequiredMixin,View):
+ login_url = 'loginUser'
+ def get(self, request):
+        form = MuonTraSachForm()
+        pms = MuonTraSach.objects.all()
+        return render(request, "home/FormTimTraSach.html",{'form':form, 'ds':pms})
+ def post(self, request):
+  if request.method == "POST":
+        pms_data = MuonTraSachForm(request.POST)  
+        maDG = request.POST.get("maDG", None)
+        try:
+                pms = MuonTraSach.objects.filter(maDG=maDG)    
+                return render(request, "home/TimTraSach_result.html",{'ds':pms})
+        except:
+                return render(request, "home/TimTraSach_result.html",{'ds':pms})
+        
+               
+                
+                
+        
+        
+        
+        
+ 
+   
 class TraSach(LoginRequiredMixin,View):
  login_url = 'loginUser'
  def get(self, request):
         form = MuonTraSachForm()
         pms = MuonTraSach.objects.all()
-        #formated_time = pms['ngayMuon']
-        #format_date = formated_time.date()
-        #pms['ngayMuon'] = format_date
         return render(request, "home/FormTraSach.html",{'form':form, 'ds':pms})
  def post(self, request):
   if request.is_ajax and request.method == "POST":
@@ -596,7 +624,8 @@ class TraSach_DG(LoginRequiredMixin,View):
    else:
                 return JsonResponse({"valid":False}, status=200)
   return JsonResponse({"error": "ERROR"}, status=400)
-
+@login_required(login_url = 'loginUser')
+@admin_only
 def delete_PMS(request,id):
         if request.is_ajax and request.method == "GET":
                 pms_data = MuonTraSach.objects.get(id=id)        

@@ -15,6 +15,7 @@ urlpatterns = [
     path('DeleteDocGia/',views.XoaDocGia.as_view(),name="xoaDG_index"),
     path('delete_DG/<int:id>',views.delete_docgia, name='deleteDG'),
     path('AlterDocGia/',views.SuaDocGia.as_view(),name='alterDG'),
+    path('Sua_DG/<int:id>',views.Sua_DG, name='Sua_DG'),
     path('AddSach/', views.AddSach.as_view(),name= "saveSach"),
     path('get/ajax/validate/sach', views.checkSach, name = "validate_sach"),
     path('get/ajax/validate/sach2', views.checkSach2, name = "validate_sach2"),
@@ -36,13 +37,13 @@ urlpatterns = [
     path('ListPMS_DG/', views.ListPMS_DG,name = "ListPMS_DG"),
     path('ListPMS_DG2/', views.ListPMS_DG2,name = "ListPMS_DG2"),
     path('TraSach/', views.TraSach.as_view(),name='traSach'),
+    path('timTraSach/', views.timTraSach.as_view(),name='timTraSach'),
     path('TraSach_DG/', views.TraSach_DG.as_view(),name='traSach_DG'),
     path('AddPhieuMuonSach/',views.AddPhieuMuonSach.as_view(),name="AddPhieuMuonSach"),
     path('AddPMS_DG/',views.AddPMS_DG.as_view(),name="AddPMS_DG"),
     path('delete_PMS/<int:id>',views.delete_PMS, name='delete_PMS'),
+    path('TraSach_id/<int:id>',views.TraSach_id, name='TraSach_id'),
     path('XoaPMS/',views.XoaPMS.as_view(),name="XoaPMS"),
-    path('Sua_DG/<int:id>',views.Sua_DG, name='Sua_DG'),
-    
     
     path('Register/',views.registerUser.as_view(),name= "registerUser"),
     path('get/ajax/validate/user', views.checkUser, name = "validate_user"),

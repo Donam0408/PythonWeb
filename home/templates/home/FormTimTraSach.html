@@ -1,0 +1,44 @@
+{% extends 'home/base_PMS.html' %}
+
+{% block content %} 
+<h2>Tìm kiếm phiếu mượn</h2>
+<form id="pms_form" action="/home/timTraSach/" method="post">
+    {% csrf_token %}
+    <label for="">Nhập mã đọc giả</label><br>{{form.maDG}}<br>
+    <input  class="btn btn-primary" type="submit" name="dangki" value="Tìm Kiếm">
+</form>
+<br>
+
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+{% block javascript %} 
+<script>
+$("#id_maDG").focusout(function (e) {
+    e.preventDefault();
+    // get the nickname
+    var maDG = $(this).val();
+    // GET AJAX request
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'validate_pms' %}",
+        data: {"maDG": maDG },
+        success: function (response) {
+            // if not valid user, alert the user
+            if(response["valid"]){
+                alert("Không tìm thấy phiếu mượn có mã đọc giả bạn vừa nhập!!");
+                var maDG = $("#id_maDG");
+                maDG.val("")
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+})
+
+
+
+</script>
+{% endblock %}

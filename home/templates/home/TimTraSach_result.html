@@ -1,7 +1,7 @@
 {% extends 'home/base_PMS.html' %}
 
 {% block content %} 
-<h2>Danh Sách Phiếu Mượn Sách</h2><br>
+<h2>Phiếu Mượn Sách Cần Tìm</h2><br>
 <table border="1" class="analytics_table">
     {% if ds%}
     <thead>
@@ -29,8 +29,9 @@
                     <td>Đã hoàn thành</td> 
             {% else %}
                     <td>Chưa hoàn thành</td>
+                    <td><a href="/home/TraSach_id/{{ x.id }}" class="traSach_id" method="post"><button class="btn btn-primary">Hoàn Thiện</button></a></td>
             {% endif %}
-            <td><a href="/home/TraSach_id/{{ x.id }}" class="traSach_id" method="post"><button class="btn btn-primary">Hoàn Thiện</button></a></td>
+            
         </tr>
         {% endfor %}
     </tbody>

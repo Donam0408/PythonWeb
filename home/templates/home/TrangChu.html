@@ -3,7 +3,6 @@
 {% block content %}
 
 <div class="content_main">
-
     <div class="left_content">
         <div class="box_cate">
             <br>
@@ -30,48 +29,14 @@
                     </ul>
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
+                    {% endif %}
+                </div>
                 
-                
-                        
-                
-
             </div>
-            <div class="title_box"><i class="icon_book" ></i><span>Sách An Toàn Thông Tin</span></div>
-            <div class="content_box">
-                <div class="list_book ">
-                   
-                    {% if attt%}
-                    <ul>
-                        
-                        {% for x in attt%}
-                        <li>
-                
-                            <div class="thumb_list">
-                                <img src="/home/media/{{x.biaSach}}"
-                                    alt="{{x.tenSach}}">
-                                <span class="hover_book capition simple-caption">
-                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
-                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
-                                </span>
-                
-                            </div>
-                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                 
-                        </li>
-                        {% endfor %}
-                    </ul>
-                
-                    {% else %}
-                    <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
-                
-                
-                        
-               
-    
-            </div>
+        </div>
+        <br>
 
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Công Nghệ Thông Tin</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -98,10 +63,44 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
-
+        </div>
+        <br>
+        <div class="box_cate">
+            <div class="title_box"><i class="icon_book" ></i><span>Sách An Toàn Thông Tin</span></div>
+            <div class="content_box">
+                <div class="list_book ">
+                   
+                    {% if attt%}
+                    <ul>
+                        
+                        {% for x in attt%}
+                        <li>
+                
+                            <div class="thumb_list">
+                                <img src="/home/media/{{x.biaSach}}"
+                                    alt="{{x.tenSach}}">
+                                <span class="hover_book capition simple-caption">
+                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
+                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                </span>
+                
+                            </div>
+                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                 
+                        </li>
+                        {% endfor %}
+                    </ul>
+                
+                    {% else %}
+                    <h3 style="color:red;">Không có dữ liệu nào</h3>
+                    {% endif %}
+                </div>
+            </div>   
+        </div>
+        <br>
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Tham Khảo</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -128,9 +127,12 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
+        </div>
+        <br>
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Giải Trí</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -157,18 +159,12 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
-
-
-
-
-
-
-
-
         </div>
+        <br>
+        
         
         
     </div>

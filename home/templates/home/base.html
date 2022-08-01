@@ -83,7 +83,7 @@
                     </div> 
                     <div class="lg_mbook">
                         {% if user.is_authenticated %}
-                        <a class=".icon_dangky2" style="color:black;font-size:18px" >Wellcome,{{ user.username }}</a>
+                        <a class=".icon_dangky2" style="font-size:18px" >Wellcome,{{ user.username }}</a>
                         {% else %}
                             
                         {% endif %}
@@ -98,6 +98,7 @@
                 <div class="wrapper">
                     <ul>
                         <li class="active"><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
+                        <li class=""><a href="{% url 'SachCNTT' %}">Thể Loại</a></li>
 
                         {% if user.is_superuser %}
                         <li class="kind-book ">
@@ -203,7 +204,8 @@
             <div class="wrapper">
                 <div class="footer_info">
                     <nav class="menu-bottom">
-                        <a href="{% url 'mainlib' %}">Trang chủ</a>
+                                <a href="{% url 'mainlib' %}">Trang chủ</a>
+                                <a href="{% url 'SachCNTT' %}">Thể Loại</a>
                                 <a href="{% url 'ListSach' %}">Quản lý sách</a>
                                 <a href="{% url 'ListDocGia' %}">Quản lý đọc giả</a>
                                 <a href="{% url 'AddPhieuMuonSach' %}">Mượn sách</a>

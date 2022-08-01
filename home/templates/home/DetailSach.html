@@ -10,9 +10,8 @@
 
     <div class="left_content">
         <h1>Danh Sách Sách Quản Lý</h1>
+        <br>
         <div class="box_cate">
-            <br>
-            
             <div class="title_box"><i class="icon_book" ></i><span>Sách Đại Cương</span></div>
             <div class="content_box">
                 <div class="list_book">
@@ -30,54 +29,19 @@
                                 </span>
                 
                             </div>
-                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                                       
+                                <a href="/home/inf_sach/{{ x.id }}" method="post"><h3 class="name">{{x.tenSach}}</h3></a>                                       
                         </li>
                         {% endfor %}             
                     </ul>
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
-                
-                        
-                
-
+                    {% endif %}
+                </div>
             </div>
-            <div class="title_box"><i class="icon_book" ></i><span>Sách An Toàn Thông Tin</span></div>
-            <div class="content_box">
-                <div class="list_book ">
-                   
-                    {% if attt%}
-                    <ul>
-                        
-                        {% for x in attt%}
-                        <li>
-                
-                            <div class="thumb_list">
-                                <img src="/home/media/{{x.biaSach}}"
-                                    alt="{{x.tenSach}}">
-                                <span class="hover_book capition simple-caption">
-                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
-                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
-                                </span>
-                
-                            </div>
-                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                 
-                        </li>
-                        {% endfor %}
-                    </ul>
-                
-                    {% else %}
-                    <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
-                
-                
-                        
-               
-    
-            </div>
+        </div>
+        <br>
 
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Công Nghệ Thông Tin</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -104,10 +68,44 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
-
+        </div>
+        <br>
+        <div class="box_cate">
+            <div class="title_box"><i class="icon_book" ></i><span>Sách An Toàn Thông Tin</span></div>
+            <div class="content_box">
+                <div class="list_book ">
+                   
+                    {% if attt%}
+                    <ul>
+                        
+                        {% for x in attt%}
+                        <li>
+                
+                            <div class="thumb_list">
+                                <img src="/home/media/{{x.biaSach}}"
+                                    alt="{{x.tenSach}}">
+                                <span class="hover_book capition simple-caption">
+                                    <span class="nxb">Mã sách: {{x.maSach}}</span>
+                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                </span>
+                
+                            </div>
+                                <a href="/home/inf_sach/{{ x.id }}"  method="post"><h3 class="name">{{x.tenSach}}</h3></a>                 
+                        </li>
+                        {% endfor %}
+                    </ul>
+                
+                    {% else %}
+                    <h3 style="color:red;">Không có dữ liệu nào</h3>
+                    {% endif %}
+                </div>
+            </div>   
+        </div>
+        <br>
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Tham Khảo</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -134,10 +132,12 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
-
+        </div>
+        <br>
+        <div class="box_cate">
             <div class="title_box"><i class="icon_book" ></i><span>Sách Giải Trí</span></div>
             <div class="content_box">
                 <div class="list_book ">
@@ -164,14 +164,15 @@
                 
                     {% else %}
                     <h3 style="color:red;">Không có dữ liệu nào</h3>
-                {% endif %}
-                
+                    {% endif %}
+                </div>
             </div>
         </div>
+        <br>
+        
         
         
     </div>
-    
 </div>
 <div style="clear: both;"></div>
 <br>

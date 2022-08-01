@@ -96,7 +96,8 @@
             <nav class="nav_header">
                 <div class="wrapper">
                     <ul>
-                        <li class="active"><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
+                        <li class=""><a href="{% url 'mainlib' %}">Trang Chủ</a></li>
+                        <li class="active"><a href="{% url 'SachCNTT' %}">Thể Loại</a></li>
 
                         {% if user.is_superuser %}
                         <li class="kind-book ">
@@ -225,6 +226,7 @@
                         <div class="footer_info">
                             <nav class="menu-bottom">
                                 <a href="{% url 'mainlib' %}">Trang chủ</a>
+                                <a href="{% url 'SachCNTT' %}">Thể Loại</a>
                                         <a href="{% url 'ListSach' %}">Quản lý sách</a>
                                         <a href="{% url 'ListDocGia' %}">Quản lý đọc giả</a>
                                         <a href="{% url 'AddPhieuMuonSach' %}">Mượn sách</a>
