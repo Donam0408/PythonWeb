@@ -128,6 +128,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
                 success: function (response) {
                     // on successfull creating object
                     if(!response["valid"]){
+                        alert("Đăng kí tài khoản thành công!");
                         window.location.href= "{% url 'loginUser' %}";
                     // 1. clear the form.
                     

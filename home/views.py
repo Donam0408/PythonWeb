@@ -524,15 +524,7 @@ class timTraSach(LoginRequiredMixin,View):
         except:
                 return render(request, "home/TimTraSach_result.html",{'ds':pms})
         
-               
-                
-                
-        
-        
-        
-        
- 
-   
+                        
 class TraSach(LoginRequiredMixin,View):
  login_url = 'loginUser'
  def get(self, request):

@@ -28,7 +28,6 @@ class Sach(models.Model):
     nhaXB = models.CharField(max_length=100)
     namXB = models.IntegerField(blank= True)
     trangThaiSach = models.BooleanField(default=True)
-    
     biaSach = models.ImageField(upload_to='images',default = None,null = True)
     def __str__(self):
         return self.maSach

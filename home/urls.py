@@ -44,7 +44,6 @@ urlpatterns = [
     path('delete_PMS/<int:id>',views.delete_PMS, name='delete_PMS'),
     path('TraSach_id/<int:id>',views.TraSach_id, name='TraSach_id'),
     path('XoaPMS/',views.XoaPMS.as_view(),name="XoaPMS"),
-    
     path('Register/',views.registerUser.as_view(),name= "registerUser"),
     path('get/ajax/validate/user', views.checkUser, name = "validate_user"),
     path('Login/',views.loginUser.as_view(),name= "loginUser"),
