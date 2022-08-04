@@ -5,9 +5,9 @@
 {% block content %} 
 <form action="/home/AlterSach/" method="post" id="sach-form">
     {% csrf_token %}
-    
-    <label for="">Nhập mã sách cần sửa</label><br><input type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
-    <h1>Sửa thông tin sách</h1>
+    <h1>Cập nhật thông tin sách</h1>
+    <label for="">Nhập mã sách cần cập nhật</label><br><input type="text" name="maSach" maxlength="50" required id="id_maSach"><br>
+    <h2>Cập nhật các trường thông tin sách bạn muốn thay đổi</h2>
     <label for="">Nhập tên sách</label><br>  <input type="text" name="tenSach" maxlength="100"  id="id_tenSach"><br>
     
     <label for="">Nhập loại sách</label><br><input type="text" name="loaiSach" maxlength="50" id="id_loaiSach"><br>
@@ -27,11 +27,11 @@
       
       </select><br>
 
-      <label for="">Sửa hình ảnh sách</label><br><input type="file" name="biaSach" accept="image/*" id="id_biaSach"><br>
+      <label for="">Cập nhật hình ảnh sách</label><br><input type="file" name="biaSach" accept="image/*" id="id_biaSach"><br>
       <br>
-    <input class="btn btn-primary" type="submit" name="dangki" value="Sửa">
+    <input class="btn btn-primary" type="submit" name="dangki" value="Cập nhật">
 </form>
-
+<br> 
 {% endblock %}
 {% block javascript %}
 

@@ -28,33 +28,35 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
 {% block javascript %} 
 <script>
-$("#id_maDG").focusout(function (e) {
-    e.preventDefault();
-    // get the nickname
-    var maDG = $(this).val();
-    // GET AJAX request
-    $.ajax({
-        type: 'GET',
-        url: "{% url 'validate_nickname' %}",
-        data: {"maDG": maDG },
-        success: function (response) {
-            // if not valid user, alert the user
-            if(response["valid"]){
-                alert("Mã đọc giả bạn nhập không tồn tại");
-                var maDG = $("#id_maDG");
-                maDG.val("")
+    $("#id_maSach").focusin(function (e) {
+        e.preventDefault();
+        // get the nickname
+        var maDG = $("#id_maDG").val();
+        // GET AJAX request
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'validate_nickname' %}",
+            data: {"maDG": maDG },
+            success: function (response) {
+                // if not valid user, alert the user
+                if(response["valid"]){
+                    alert("Mã đọc giả bạn nhập không tồn tại");
+                    var maDG1 = $("#id_maDG");
+                    maDG1.val("");
+                    maDG1.focus();
+                    
+                }
+            },
+            error: function (response) {
+                console.log(response)
             }
-        },
-        error: function (response) {
-            console.log(response)
-        }
+        })
     })
-})
 
-$("#id_maSach").focusout(function (e) {
+$("#id_ngayMuon").focusin(function (e) {
     e.preventDefault();
     // get the nickname
-    var maSach = $(this).val();
+    var maSach = $("#id_maSach").val();
     // GET AJAX request
     $.ajax({
         type: 'POST',
@@ -66,14 +68,17 @@ $("#id_maSach").focusout(function (e) {
             // if not valid user, alert the user
             if(!response["valid"]){
                 alert("Mã sách bạn nhập không tồn tại");
-                var maSach = $("#id_maSach");
-                maSach.val("")
+                var maSach1 = $("#id_maSach");
+                maSach1.val("");
+                maSach1.focus();
             }
             else{
                 if(response.mess == 1){
                     alert("Sách đã được mượn");
-                    var maDG = $("#id_maSach");
-                    maDG.val("")
+                    var maSach1 = $("#id_maSach");
+                    maSach1.val("");
+                    maSach1.focus();
+
                 }                
             }
 

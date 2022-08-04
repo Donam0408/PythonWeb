@@ -12,6 +12,7 @@
             <th>Ngày hẹn trả </th>
             <th>Ngày trả</th>
             <th>Trạng thái</th>
+            <th>Chức năng</th>
         </tr>
 
     </thead>
@@ -30,6 +31,7 @@
                     <td>Chưa hoàn thành</td>
                     <td><a href="/home/TraSach_id/{{ x.id }}" class="traSach_id" method="post"><button class="btn btn-primary">Hoàn Thiện</button></a></td>
             {% endif %}
+            
         </tr>
         {% endfor %}
     </tbody>

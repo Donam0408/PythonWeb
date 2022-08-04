@@ -465,20 +465,21 @@ class AddPhieuMuonSach(LoginRequiredMixin,View):
         return render(request, "home/FormAddPhieuMuonSach.html",{'form':form})         
  def post(self, request):
   if request.is_ajax and request.method == "POST":
-        pms_data = MuonTraSachForm(request.POST)
-        if pms_data.is_valid():
-                ngayMuon = pms_data.cleaned_data['ngayMuon']
-                ngayHenTra = pms_data.cleaned_data['ngayHenTra']
-                sach_id = pms_data.cleaned_data['maSach']
-                sach = Sach.objects.get(maSach = sach_id)
-                
-                if(ngayHenTra>= ngayMuon):
+        maSach = request.POST.get("maSach", None)
+        maDG = request.POST.get("maDG", None)
+        ngayMuon = request.POST.get("ngayMuon", None)
+        ngayHenTra = request.POST.get("ngayHenTra", None)
+        owner = request.user
+        pms = MuonTraSach.objects.create(maDG =maDG,maSach=maSach,ngayMuon=ngayMuon,ngayHenTra=ngayHenTra,trangThai=False,created_by = owner)
+        
+        sach = Sach.objects.get(maSach = maSach)
+        if(ngayHenTra>= ngayMuon):
                  sach.trangThaiSach = True
-                 sach.save()        
-                 pms_data.save()
+                 sach.save() 
+                 pms.save()
                  return JsonResponse({"valid":False}, status=200) 
-                return JsonResponse({"valid":True}, status=200)    
-        return JsonResponse({"error": pms_data.errors}, status=400) 
+        return JsonResponse({"valid":True}, status=200)   
+# Trả sách 
 class AddPMS_DG(LoginRequiredMixin,View):
  login_url = 'loginUser'
  def get(self, request):
@@ -581,7 +582,7 @@ class TraSach_DG(LoginRequiredMixin,View):
  login_url = 'loginUser'
  def get(self, request):
         form = MuonTraSachForm()
-        pms = MuonTraSach.objects.all()
+        pms = MuonTraSach.objects.filter(trangThai =False,created_by = request.user)
         #formated_time = pms['ngayMuon']
         #format_date = formated_time.date()
         #pms['ngayMuon'] = format_date
@@ -677,11 +678,13 @@ def FindSachByName(request):
         if request.method == 'POST':
                 bookname = request.POST.get('bookname')
                 sach = []
-                try:
-                        sach = Sach.objects.filter(tenSach__icontains = bookname)
-                        return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
-                except:
-                        return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
+                if bookname.strip():
+                        try:
+                                sach = Sach.objects.filter(tenSach__icontains = bookname)
+                                return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
+                        except:
+                                return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
+                return  render(request, "home/FindSach_Result.html", {'sach' : sach}) 
                 
 
                 
