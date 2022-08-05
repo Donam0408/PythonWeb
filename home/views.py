@@ -46,17 +46,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from home.decorator import admin_only, role_required,admin_only2
-from django.utils.decorators import method_decorator       
-
-
-
-
-
-
-
-
-
-
+from django.utils.decorators import method_decorator      
 
 # Doc Gia API-------------------------------------------------------------------------------------------------------------------------------
 # Hiển thị danh sách đọc giả

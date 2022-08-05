@@ -1,14 +1,8 @@
 {% extends 'home/base_DG.html' %}
 
 {% block content %} 
-<form action="/home/DeleteDocGia/" method="post">
-    {% csrf_token %}
-    
-    <h3><label for="">Nhập mã đọc giả</label></h3>{{form.maDG}}<br>
 
-    <input  class="btn btn-primary" type="submit" name="Xóa" id="xoa_dg" value="Xóa đọc giả">
-</form>
-    <br> 
+    
     <br>
     <h1>Xóa Theo Danh Sách Đọc Giả</h1>
 <table border="1" class="analytics_table" >
