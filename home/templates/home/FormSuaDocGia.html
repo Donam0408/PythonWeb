@@ -14,7 +14,7 @@
     <label for="">Nhập ngày sinh đọc giả</label><br><input name="ngaySinh" type="date" class="vDateField" size="10"  id="id_ngaySinh" value="{{data.ngaySinh|date:'Y-m-d'}}"><br>
     
     <label for="">Nhập giới tính đọc giả</label><br><select  style="width: 160px;" name="gioiTinh" id="id_gioiTinh" value="{{data.gioiTinh}}">
-        <option value="" selected disabled hidden>Chọn giới tính</option>
+        <option value="" selected disabled hidden>{{data.gioiTinh}}</option>
         <option value="Nữ" >Nữ</option>
       
         <option value="Nam">Nam</option>

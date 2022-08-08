@@ -25,6 +25,7 @@ urlpatterns = [
     path('SachDC/', views.SachDC,name= "SachDC"),
     path('SachTK/', views.SachTK,name= "SachTK"),
     path('SachGT/', views.SachGT,name= "SachGT"),
+    path('SachDTVT/', views.SachDTVT,name= "SachDTVT"),
     path('FindSach/',views.FindSach.as_view(),name= "FindSach"),
     path('FindSachByName/',views.FindSachByName,name= "FindSachByName"),
     path('DeleteSach/',views.XoaSach.as_view(),name= "XoaSach"),

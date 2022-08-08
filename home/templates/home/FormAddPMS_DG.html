@@ -11,10 +11,6 @@
     
     <label for="">Nhập mã sách</label><br> {{form.maSach}}<br>
     
-
-    <label for="">Nhập ngày mượn(tháng /ngày/năm)</label><br>{{form.ngayMuon}}<br>
-
-
     <label for="">Nhập ngày hẹn trả(tháng /ngày/năm)</label><br>{{form.ngayHenTra}}<br>
     <br>
 
@@ -52,8 +48,7 @@
             }
         })
     })
-
-$("#id_ngayMuon").focusin(function (e) {
+$("#id_ngayHenTra").focusin(function (e) {
     e.preventDefault();
     // get the nickname
     var maSach = $("#id_maSach").val();
@@ -110,7 +105,6 @@ $("#pms_form").submit(function (e) {
         data: {
         "maSach": $("#id_maSach").val(),
         'maDG' : $("#id_maDG").val(),
-        'ngayMuon':$("#id_ngayMuon").val(),
         'ngayHenTra':$("#id_ngayHenTra").val(),
         csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val(),
 },

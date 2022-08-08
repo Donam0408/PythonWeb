@@ -19,7 +19,11 @@
                                     alt="{{x.tenSach}}">
                                 <span class="hover_book capition simple-caption">
                                     <span class="nxb">Mã sách: {{x.maSach}}</span>
-                                    <span class="tacgia">Tác giả: {{x.tenTG}}</span>
+                                    {% if x.trangThaiSach %}
+                                    <span class="tacgia">Đã Được Mượn</span>
+                                    {% else %}
+                                    <span class="tacgia">Có Thể Mượn</span>
+                                    {% endif %}
                                 </span>
                 
                             </div>

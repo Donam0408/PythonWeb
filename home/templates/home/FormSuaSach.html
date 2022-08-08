@@ -19,7 +19,8 @@
     <label for="">Nhập năm xuất bản</label><br><input type="number" name="namXB" id="id_namXB"><br>
 
     <label for="">Trạng thái sách </label><br><select style="width: 180px;" name="trangThaiSach" id="id_trangThaiSach">
-        <option value="0" selected>Có thể mượn</option>
+        <option value="" selected disabled hidden>Chọn Trạng Thái Sách</option>
+        <option value="0">Có thể mượn</option>
       
         <option value="1">Đã được mượn</option>
       
@@ -65,6 +66,7 @@
             }
             else {
                 alert("Cập nhật thông tin sách thành công");
+                window.location.href= "{% url 'ListSach' %}";
             }
             
         },
