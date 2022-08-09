@@ -3,6 +3,7 @@
 {% block content %} 
 <form action="/home/FindSach/" method="post" id="sach-form">
     {% csrf_token %}
+    <h2>Tra cứu thông tin theo mã sách</h2>
     <label for="">Nhập mã sách</label><br>{{form.maSach}}<br><br>
     <input class="btn btn-primary" type="submit" name="Tìm" value="Tìm"> 
     <br><br>

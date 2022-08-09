@@ -256,32 +256,32 @@ def infor_sach(request,id):
 @login_required(login_url = 'loginUser')
 def SachCNTT(request):
         if request.method == 'GET':
-                sachcntt = Sach.objects.filter(loaiSach__icontains = 'CNTT')
+                sachcntt = Sach.objects.filter(loaiSach__icontains = 'CNTT',trangThaiSach = False)
                 return render(request, "home/SachCNTT.html", {'cntt' : sachcntt})
 @login_required(login_url = 'loginUser')
 def SachDC(request):
         if request.method == 'GET':
-                sachdc = Sach.objects.filter(loaiSach__icontains = "Đại Cương")
+                sachdc = Sach.objects.filter(loaiSach__icontains = "Đại Cương",trangThaiSach = False)
                 return render(request, "home/SachDC.html", {'dc' : sachdc})
 @login_required(login_url = 'loginUser')
 def SachATTT(request):
         if request.method == 'GET':
-                sachattt = Sach.objects.filter(loaiSach__icontains = 'ATTT')
+                sachattt = Sach.objects.filter(loaiSach__icontains = 'ATTT',trangThaiSach = False)
                 return render(request, "home/SachATTT.html", {'attt' : sachattt})
 @login_required(login_url = 'loginUser')
 def SachTK(request):
         if request.method == 'GET':
-                sachtk= Sach.objects.filter(loaiSach__icontains = 'Tham Khảo')
+                sachtk= Sach.objects.filter(loaiSach__icontains = 'Tham Khảo',trangThaiSach = False)
                 return render(request, "home/SachTK.html", {'thamkhao' : sachtk})
 @login_required(login_url = 'loginUser')
 def SachGT(request):
         if request.method == 'GET':
-                sachtruyen= Sach.objects.filter(loaiSach__icontains = 'Giải Trí')
+                sachtruyen= Sach.objects.filter(loaiSach__icontains = 'Giải Trí',trangThaiSach = False)
                 return render(request, "home/SachGT.html", {'giaitri':sachtruyen})
 @login_required(login_url = 'loginUser')
 def SachDTVT(request):
         if request.method == 'GET':
-                sachdtvt= Sach.objects.filter(loaiSach__icontains = 'DTVT')
+                sachdtvt= Sach.objects.filter(loaiSach__icontains = 'DTVT',trangThaiSach = False)
                 return render(request, "home/SachDTVT.html", {'sachdtvt':sachdtvt})
 
         
@@ -585,6 +585,7 @@ class TraSach_DG(LoginRequiredMixin,View):
                 pms = MuonTraSach.objects.get(maDG = docgia_id ,maSach = sach_id, trangThai = False)
                 format = '%Y-%m-%d'
                 ngayTra1 = datetime.strptime(ngayTra, format)
+                
                 ngayMuon = pms.ngayMuon
                 ngayMuon_str =  date.strftime(ngayMuon,format)
                 ngayMuon_date = datetime.strptime(ngayMuon_str, format)

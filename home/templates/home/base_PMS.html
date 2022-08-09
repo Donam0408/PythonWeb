@@ -196,9 +196,10 @@
                             <div class="content_cate_list">
                                 {% if user.is_superuser %}
                                 <ul>
-                                    <li><a href="{% url 'ListPMS'%}" title="Danh sách phiếu mượn">Danh sách phiếu mượn</a></li>
+                                    <li><a href="{% url 'ListPMS'%}" title="Danh sách phiếu mượn">Trả sách</a></li>
                                     <li><a href="{% url 'AddPhieuMuonSach'%}" title="Đăng kí mượn">Đăng kí mượn sách</a></li>
-                                    <li><a href="{% url 'timTraSach'%}" title="Đăng kí trả">Tìm phiếu mượn</a></li>
+                                    <li><a href="{% url 'timTraSach'%}" title="Đăng kí trả">Tìm kiếm phiếu mượn</a></li>
+                                    
                                     <li><a href="{% url 'XoaPMS'%}" title="">Xóa phiếu mượn sách</a></li>
                                     
                                     <li><a href="{% url 'ListPMS2'%}" title="Lịch sử mượn sách">Lịch sử mượn sách</a></li>                                         

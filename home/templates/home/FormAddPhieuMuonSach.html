@@ -106,7 +106,7 @@ $("#pms_form").submit(function (e) {
             // on successfull creating object
             if(!response["valid"]){
                     alert("Đăng kí mượn sách  thành công");
-                    window.location.href= "{% url 'ListPMS' %}"; 
+                    
             // 1. clear the form.
             $("#pms_form").trigger('reset');
             // display the newly friend to table.
