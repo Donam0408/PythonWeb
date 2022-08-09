@@ -12,9 +12,6 @@
     <label for="">Nhập mã sách</label><br> {{form.maSach}}<br>
     
 
-    <label for="">Nhập ngày mượn(tháng /ngày/năm)</label><br>{{form.ngayMuon}}<br>
-
-
     <label for="">Nhập ngày hẹn trả(tháng /ngày/năm)</label><br>{{form.ngayHenTra}}<br>
     <br>
 
@@ -98,7 +95,7 @@ $("#pms_form").submit(function (e) {
         data: {
             "maSach": $("#id_maSach").val(),
             'maDG' : $("#id_maDG").val(),
-            'ngayMuon':$("#id_ngayMuon").val(),
+            
             'ngayHenTra':$("#id_ngayHenTra").val(),
             csrfmiddlewaretoken : $('input[name = csrfmiddlewaretoken]').val(),
     },

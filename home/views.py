@@ -463,15 +463,16 @@ class AddPhieuMuonSach(LoginRequiredMixin,View):
   if request.is_ajax and request.method == "POST":
         maSach = request.POST.get("maSach", None)
         maDG = request.POST.get("maDG", None)
-        ngayMuon = request.POST.get("ngayMuon", None)
         ngayHenTra = request.POST.get("ngayHenTra", None)
+        format = '%Y-%m-%d'
+        ngayMuon = datetime.today()
+        ngayHenTra_date = datetime.strptime(ngayHenTra, format)
         owner = request.user
-        pms = MuonTraSach.objects.create(maDG =maDG,maSach=maSach,ngayMuon=ngayMuon,ngayHenTra=ngayHenTra,trangThai=False,created_by = owner)
-        
         sach = Sach.objects.get(maSach = maSach)
-        if(ngayHenTra>= ngayMuon):
+        if(ngayHenTra_date >= ngayMuon):
                  sach.trangThaiSach = True
                  sach.save() 
+                 pms = MuonTraSach.objects.create(maDG =maDG,maSach=maSach,ngayMuon=ngayMuon,ngayHenTra=ngayHenTra,trangThai=False,created_by = owner)
                  pms.save()
                  return JsonResponse({"valid":False}, status=200) 
         return JsonResponse({"valid":True}, status=200)   
