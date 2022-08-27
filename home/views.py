@@ -241,7 +241,7 @@ def checkSach2(request):
             instance = Sach.objects.get(maSach = maSach)
             if instance.trangThaiSach ==True: 
                     return JsonResponse({"valid":True, "mess": 1}, status=200)  
-            return JsonResponse({"valid":True,}, status=200)
+            return JsonResponse({"valid":True}, status=200)
         else:
             # if nick_name not found, then user can create a new friend.
             return JsonResponse({"valid":False}, status = 200)
