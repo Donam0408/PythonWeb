@@ -3,13 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 {% block content %} 
-<h2> Xóa Sách Theo Mã Sách</h2>
-<form action="/home/DeleteSach/" method="post">
-    {% csrf_token %}
-    <label for="">Nhập mã sách</label><br>{{form.maSach}}<br>
-    <input class="btn btn-primary"  type="submit" name="Xóa" value="Xóa">
-</form>
-    <br><br>
+<br>
     <h2> Xóa Sách Theo Danh Sách</h2>
 <table border="1" class="analytics_table">
     {% if ds%}
